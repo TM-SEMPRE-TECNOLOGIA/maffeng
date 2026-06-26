@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checklist – Levantamento Preventivo | MAFFENG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --TM-background: #f8fafc;
+    --TM-foreground: #0f172a;
+    --TM-card: #ffffff;
+    --TM-card-foreground: #0f172a;
+    --TM-primary: #16a34a;
+    --TM-primary-foreground: #ffffff;
+    --TM-secondary: #f1f5f9;
+    --TM-secondary-foreground: #334155;
+    --TM-muted: #f1f5f9;
+    --TM-muted-foreground: #475569;
+    --TM-accent: #dcfce7;
+    --TM-accent-foreground: #0f172a;
+    --TM-destructive: #ef4444;
+    --TM-destructive-foreground: #ffffff;
+    --TM-border: #cbd5e1;
+    --TM-ring: #16a34a;
+    --TM-shadow-sm: 0px 4px 8px -1px rgba(0,0,0,0.08), 0px 1px 2px -2px rgba(0,0,0,0.08);
+    --TM-shadow: 0px 4px 8px -1px rgba(0,0,0,0.10), 0px 1px 2px -2px rgba(0,0,0,0.10);
+    --TM-shadow-md: 0px 4px 12px -1px rgba(0,0,0,0.12), 0px 2px 4px -2px rgba(0,0,0,0.10);
+    --TM-shadow-lg: 0px 8px 20px -2px rgba(0,0,0,0.12), 0px 4px 6px -2px rgba(0,0,0,0.08);
+    --TM-radius-sm: 6px;
+    --TM-radius-md: 8px;
+    --TM-radius-lg: 12px;
+    --TM-radius-xl: 16px;
+  }
+
+  html.dark {
+    --TM-background: #0f172a;
+    --TM-foreground: #f8fafc;
+    --TM-card: #1e293b;
+    --TM-card-foreground: #f1f5f9;
+    --TM-primary: #10b981;
+    --TM-primary-foreground: #ffffff;
+    --TM-secondary: #0f172a;
+    --TM-secondary-foreground: #94a3b8;
+    --TM-muted: #334155;
+    --TM-muted-foreground: #94a3b8;
+    --TM-accent: #064e3b;
+    --TM-accent-foreground: #f1f5f9;
+    --TM-destructive: #ef4444;
+    --TM-destructive-foreground: #ffffff;
+    --TM-border: #334155;
+    --TM-ring: #10b981;
+    --TM-shadow-sm: 0px 4px 8px -1px rgba(0,0,0,0.4), 0px 1px 2px -2px rgba(0,0,0,0.4);
+    --TM-shadow: 0px 4px 8px -1px rgba(0,0,0,0.5), 0px 1px 2px -2px rgba(0,0,0,0.5);
+    --TM-shadow-md: 0px 4px 12px -1px rgba(0,0,0,0.6), 0px 2px 4px -2px rgba(0,0,0,0.5);
+    --TM-shadow-lg: 0px 8px 20px -2px rgba(0,0,0,0.7), 0px 4px 6px -2px rgba(0,0,0,0.6);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--TM-background);
+    color: var(--TM-foreground);
+    min-height: 100vh;
+    padding: 20px;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    background: var(--TM-card);
+    border: 1px solid var(--TM-border);
+    border-radius: var(--TM-radius-xl);
+    box-shadow: var(--TM-shadow-md);
+    padding: 28px 28px 22px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 12px;
+  }
+
+  .brand h1 {
+    font-size: 1.9em;
+    font-weight: 700;
+    color: var(--TM-primary);
+    line-height: 1.1;
+  }
+
+  .brand span {
+    color: var(--TM-foreground);
+  }
+
+  .brand-sub {
+    font-size: 0.8em;
+    color: var(--TM-muted-foreground);
+    margin-top: 4px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .header-pill {
+    background: var(--TM-accent);
+    color: var(--TM-primary);
+    border: 1px solid rgba(22,163,74,0.25);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 0.78em;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  html.dark .header-pill {
+    background: rgba(16,185,129,0.12);
+    border-color: rgba(16,185,129,0.3);
+    color: #10b981;
+  }
+
+  .btn-theme {
+    background: transparent;
+    border: 1.5px solid var(--TM-border);
+    color: var(--TM-muted-foreground);
+    padding: 6px 12px;
+    border-radius: var(--TM-radius-md);
+    font-size: 0.8em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .btn-theme:hover {
+    border-color: var(--TM-primary);
+    color: var(--TM-primary);
+    background: var(--TM-accent);
+  }
+
+  /* Campos de identificação */
+  .header-fields {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 12px;
+  }
+
+  .hfield {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .hfield label {
+    font-size: 0.78em;
+    color: var(--TM-muted-foreground);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .hfield input,
+  .hfield select {
+    padding: 9px 13px;
+    border: 1.5px solid var(--TM-border);
+    border-radius: var(--TM-radius-md);
+    font-family: inherit;
+    font-size: 0.95em;
+    color: var(--TM-foreground);
+    background: var(--TM-background);
+    transition: border-color 0.2s;
+    outline: none;
+    width: 100%;
+  }
+
+  .hfield input:focus,
+  .hfield select:focus {
+    border-color: var(--TM-primary);
+  }
+
+  .hfield input::placeholder {
+    color: var(--TM-muted-foreground);
+    opacity: 0.6;
+  }
+
+  .hfield select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 32px;
+  }
+
+  .hfield select option {
+    background: var(--TM-card);
+    color: var(--TM-foreground);
+  }
+
+  @media (max-width: 520px) {
+    .header-fields { grid-template-columns: 1fr; }
+    .header-pill { display: none; }
+  }
+
+  /* ─── PROGRESS ─── */
+  .progress-section {
+    background: var(--TM-card);
+    border: 1px solid var(--TM-border);
+    border-radius: var(--TM-radius-lg);
+    padding: 18px 22px;
+    margin-bottom: 20px;
+    box-shadow: var(--TM-shadow-sm);
+  }
+
+  .progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .progress-label {
+    font-size: 0.82em;
+    color: var(--TM-muted-foreground);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .progress-count {
+    font-size: 0.9em;
+    color: var(--TM-primary);
+    font-weight: 700;
+  }
+
+  .progress-bar-bg {
+    height: 7px;
+    background: var(--TM-muted);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--TM-primary), #22c55e);
+    border-radius: 99px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  /* ─── SECTION CARD ─── */
+  .section-card {
+    background: var(--TM-card);
+    border: 1px solid var(--TM-border);
+    border-radius: var(--TM-radius-lg);
+    margin-bottom: 14px;
+    overflow: hidden;
+    box-shadow: var(--TM-shadow-sm);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .section-card.all-done {
+    border-color: var(--TM-primary);
+    box-shadow: 0 0 0 1px rgba(22,163,74,0.15), var(--TM-shadow-sm);
+  }
+
+  html.dark .section-card.all-done {
+    border-color: #10b981;
+    box-shadow: 0 0 0 1px rgba(16,185,129,0.15), var(--TM-shadow-sm);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+  }
+
+  .section-header:hover {
+    background: var(--TM-secondary);
+  }
+
+  .section-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--TM-radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+    background: var(--TM-secondary);
+    border: 1px solid var(--TM-border);
+  }
+
+  .section-meta { flex: 1; }
+
+  .section-number {
+    font-size: 0.72em;
+    color: var(--TM-muted-foreground);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+
+  .section-title {
+    font-size: 1em;
+    font-weight: 700;
+    color: var(--TM-foreground);
+    line-height: 1.2;
+  }
+
+  .section-progress {
+    font-size: 0.82em;
+    color: var(--TM-muted-foreground);
+    font-weight: 700;
+  }
+
+  .section-arrow {
+    font-size: 18px;
+    color: var(--TM-muted-foreground);
+    transition: transform 0.3s;
+    line-height: 1;
+  }
+
+  .section-card.open .section-arrow { transform: rotate(90deg); }
+
+  .section-body {
+    display: none;
+    border-top: 1px solid var(--TM-border);
+  }
+
+  .section-card.open .section-body { display: block; }
+
+  /* ─── CHECK ITEM ─── */
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    padding: 13px 20px;
+    border-bottom: 1px solid var(--TM-border);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .check-item:last-child { border-bottom: none; }
+  .check-item:hover { background: var(--TM-secondary); }
+  .check-item.checked { opacity: 0.65; }
+
+  .check-box {
+    width: 22px;
+    height: 22px;
+    border-radius: var(--TM-radius-sm);
+    border: 2px solid var(--TM-border);
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    background: var(--TM-background);
+  }
+
+  .check-item.checked .check-box {
+    background: var(--TM-primary);
+    border-color: var(--TM-primary);
+  }
+
+  .check-tick {
+    display: none;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 900;
+  }
+
+  .check-item.checked .check-tick { display: block; }
+
+  .check-text {
+    font-size: 0.92em;
+    color: var(--TM-foreground);
+    line-height: 1.5;
+    flex: 1;
+    font-weight: 400;
+  }
+
+  .check-item.checked .check-text {
+    text-decoration: line-through;
+    color: var(--TM-muted-foreground);
+  }
+
+  .tag {
+    font-size: 0.68em;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: var(--TM-radius-sm);
+    flex-shrink: 0;
+    margin-top: 3px;
+    white-space: nowrap;
+  }
+
+  .tag-obrig {
+    background: rgba(239,68,68,0.1);
+    color: #dc2626;
+    border: 1px solid rgba(239,68,68,0.25);
+  }
+
+  .tag-alerta {
+    background: rgba(234,179,8,0.1);
+    color: #ca8a04;
+    border: 1px solid rgba(234,179,8,0.25);
+  }
+
+  .tag-proib {
+    background: rgba(249,115,22,0.1);
+    color: #ea580c;
+    border: 1px solid rgba(249,115,22,0.25);
+  }
+
+  /* ─── ALERT BOX ─── */
+  .alert-box {
+    background: rgba(239,68,68,0.05);
+    border: 1px solid rgba(239,68,68,0.2);
+    border-radius: var(--TM-radius-md);
+    padding: 14px 18px;
+    margin: 12px 20px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .alert-box .icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  .alert-box p {
+    font-size: 0.88em;
+    color: var(--TM-foreground);
+    line-height: 1.5;
+  }
+
+  .alert-box strong {
+    color: var(--TM-destructive);
+    display: block;
+    font-size: 0.75em;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  /* ─── FECHAMENTO ─── */
+  .closing-section {
+    background: var(--TM-card);
+    border: 1.5px solid var(--TM-primary);
+    border-radius: var(--TM-radius-lg);
+    padding: 20px;
+    margin-bottom: 14px;
+    box-shadow: var(--TM-shadow-sm);
+  }
+
+  html.dark .closing-section {
+    border-color: #10b981;
+  }
+
+  .closing-title {
+    font-size: 1em;
+    font-weight: 700;
+    color: var(--TM-primary);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .closing-section .check-item {
+    background: var(--TM-secondary);
+    border-radius: var(--TM-radius-md);
+    margin-bottom: 8px;
+    border: 1px solid var(--TM-border);
+    border-bottom: 1px solid var(--TM-border) !important;
+  }
+
+  .closing-section .check-item:last-child { margin-bottom: 0; }
+
+  /* ─── RULES GRID ─── */
+  .rules-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .rule-card {
+    background: var(--TM-card);
+    border: 1px solid var(--TM-border);
+    border-radius: var(--TM-radius-lg);
+    padding: 14px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    box-shadow: var(--TM-shadow-sm);
+    border-left: 3px solid var(--TM-primary);
+  }
+
+  .rule-icon { font-size: 18px; flex-shrink: 0; }
+
+  .rule-card p {
+    font-size: 0.88em;
+    color: var(--TM-foreground);
+    line-height: 1.4;
+    font-weight: 500;
+  }
+
+  /* ─── BOTÕES ─── */
+  .action-bar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+
+  .btn {
+    padding: 11px 20px;
+    border-radius: var(--TM-radius-md);
+    font-size: 0.88em;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: inherit;
+  }
+
+  .btn-primary {
+    background: var(--TM-primary);
+    color: var(--TM-primary-foreground);
+    box-shadow: 0 2px 8px rgba(22,163,74,0.25);
+  }
+
+  .btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(22,163,74,0.35);
+  }
+
+  html.dark .btn-primary {
+    box-shadow: 0 2px 8px rgba(16,185,129,0.25);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--TM-muted-foreground);
+    border: 1.5px solid var(--TM-border);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--TM-muted-foreground);
+    color: var(--TM-foreground);
+    background: var(--TM-secondary);
+  }
+
+  /* ─── MODAL ─── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-overlay.show { display: flex; }
+
+  .modal {
+    background: var(--TM-card);
+    border: 1px solid var(--TM-border);
+    border-radius: var(--TM-radius-xl);
+    padding: 28px;
+    max-width: 560px;
+    width: 100%;
+    box-shadow: var(--TM-shadow-lg);
+    animation: slideUp 0.3s ease;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .modal-title {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--TM-foreground);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .modal-content {
+    background: var(--TM-secondary);
+    border: 1px solid var(--TM-border);
+    border-radius: var(--TM-radius-md);
+    padding: 16px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.82em;
+    color: var(--TM-foreground);
+    line-height: 1.7;
+    white-space: pre-wrap;
+    max-height: 50vh;
+    overflow-y: auto;
+    margin-bottom: 18px;
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 0.78em;
+    color: var(--TM-muted-foreground);
+    border-top: 1px solid var(--TM-border);
+    margin-top: 10px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .rules-grid { grid-template-columns: 1fr; }
+    body { padding: 12px; }
+  }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--TM-background); }
+  ::-webkit-scrollbar-thumb { background: var(--TM-border); border-radius: 99px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+<header>
+  <div class="header-top">
+    <div class="brand">
+      <h1>MAFF<span>ENG</span></h1>
+      <div class="brand-sub">Engenharia e Manutenção</div>
+    </div>
+    <div class="header-actions">
+      <div class="header-pill">Levantamento Preventivo</div>
+      <button class="btn-theme" onclick="toggleTheme()" id="themeBtn">🌙 Escuro</button>
+    </div>
+  </div>
+  <div class="header-fields">
+    <div class="hfield">
+      <label>Nome do Levantamento / Agência</label>
+      <input type="text" id="inputLevantamento" placeholder="Ex: Ag. Centro — Goiânia GO">
+    </div>
+    <div class="hfield">
+      <label>Prefixo</label>
+      <input type="text" id="inputPrefixo" placeholder="Ex: 1234" style="width:90px;">
+    </div>
+    <div class="hfield">
+      <label>Nome do Técnico Responsável</label>
+      <input type="text" id="inputTecnico" placeholder="Ex: João Silva">
+    </div>
+    <div class="hfield" style="grid-column: 1 / -1;">
+      <label>Contrato</label>
+      <select id="inputContrato">
+        <option value="">— Selecione o contrato —</option>
+        <option value="Nº 2056 · MG – Divinópolis">Nº 2056 · MG – Divinópolis</option>
+        <option value="Nº 2057 · MG – Varginha">Nº 2057 · MG – Varginha</option>
+        <option value="Nº 2626 · MG – Salinas e São Francisco">Nº 2626 · MG – Salinas e São Francisco</option>
+        <option value="Nº 2627 · MG – Governador Valadares e Joaíma">Nº 2627 · MG – Governador Valadares e Joaíma</option>
+        <option value="Nº 6122 · MS – Campo Grande e Aquidauana">Nº 6122 · MS – Campo Grande e Aquidauana</option>
+        <option value="Nº 0908 · SP – São José dos Campos">Nº 0908 · SP – São José dos Campos</option>
+        <option value="Nº 1565 · SP – São José do Rio Preto e Ribeirão Preto">Nº 1565 · SP – São José do Rio Preto e Ribeirão Preto</option>
+        <option value="Nº 1507 · MT – Cuiabá">Nº 1507 · MT – Cuiabá</option>
+        <option value="Nº 3575 · MT – Tangará da Serra, Sinop e Barra do Garças">Nº 3575 · MT – Tangará da Serra, Sinop e Barra do Garças</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<!-- PROGRESS -->
+<div class="progress-section">
+  <div class="progress-info">
+    <span class="progress-label">Progresso do Checklist</span>
+    <span class="progress-count" id="progressCount">0 / 0</span>
+  </div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progressBar"></div>
+  </div>
+</div>
+
+<!-- SEÇÃO 1 -->
+<div class="section-card" id="sec1">
+  <div class="section-header" onclick="toggleSection('sec1')">
+    <div class="section-icon">⚙️</div>
+    <div class="section-meta">
+      <div class="section-number">Item 01</div>
+      <div class="section-title">Casa de Máquinas</div>
+    </div>
+    <div class="section-progress" id="prog-sec1">0/4</div>
+    <div class="section-arrow">›</div>
+  </div>
+  <div class="section-body">
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">Fotografar todos os equipamentos e instalações da casa de máquinas</div>
+      <span class="tag tag-obrig">Obrig.</span>
+    </div>
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">Registrar entulho, materiais acumulados ou bloqueios identificados</div>
+      <span class="tag tag-obrig">Obrig.</span>
+    </div>
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">Verificar e fotografar se os acessos estão desobstruídos</div>
+      <span class="tag tag-obrig">Obrig.</span>
+    </div>
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">Orientar limpeza no relatório se houver acúmulo de entulho</div>
+      <span class="tag tag-alerta">Atenção</span>
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO 2 -->
+<div class="section-card" id="sec2">
+  <div class="section-header" onclick="toggleSection('sec2')">
+    <div class="section-icon">💧</div>
+    <div class="section-meta">
+      <div class="section-number">Item 02</div>
+      <div class="section-title">Bomba, Barrilete e Reservatórios</div>
+    </div>
+    <div class="section-progress" id="prog-sec2">0/3</div>
+    <div class="section-arrow">›</div>
+  </div>
+  <div class="section-body">
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">Fotografar bombas, barrilete e reservatórios — fotos obrigatórias</div>
+      <span class="tag tag-obrig">Obrig.</span>
+    </div>
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">Informar se os equipamentos estão em pleno funcionamento</div>
+      <span class="tag tag-obrig">Obrig.</span>
+    </div>
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">Descrever anomalias encontradas (ruídos, vazamentos, irregularidades)</div>
+      <span class="tag tag-alerta">Atenção</span>
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO 3 -->
+<div class="section-card" id="sec3">
+  <div class="section-header" onclick="toggleSection('sec3')">
+    <div class="section-icon">🚪</div>
+    <div class="section-meta">
+      <div class="section-number">Item 03</div>
+      <div class="section-title">Ambientes Inativos / Não Usados</div>
+    </div>
+    <div class="section-progress" id="prog-sec3">0/5</div>
+    <div class="section-arrow">›</div>
+  </div>
+  <div class="section-body">
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">Realizar fotos amplas dos ambientes inativos ou sem uso</div>
+      <span class="tag tag-obrig">Obrig.</span>
+    </div>
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">Verificar e registrar infiltrações nas paredes, teto ou piso</div>
+      <span class="tag tag-alerta">Atenção</span>
+    </div>
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">Identificar vidros quebrados ou aberturas que permitam entrada de animais</div>
+      <span class="tag tag-alerta">Atenção</span>
+    </div>
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">Verificar riscos estruturais visíveis (trincas, rachaduras, desabamento)</div>
+      <span class="tag tag-alerta">Atenção</span>
+    </div>
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">⚠️ Relatar IMEDIATAMENTE qualquer perigo identificado ao responsável</div>
+      <span class="tag tag-obrig">Urgente</span>
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO 4 -->
+<div class="section-card" id="sec4">
+  <div class="section-header" onclick="toggleSection('sec4')">
+    <div class="section-icon">🔒</div>
+    <div class="section-meta">
+      <div class="section-number">Item 04</div>
+      <div class="section-title">Mola Aérea e Controle de Acesso</div>
+    </div>
+    <div class="section-progress" id="prog-sec4">0/2</div>
+    <div class="section-arrow">›</div>
+  </div>
+  <div class="section-body">
+    <div class="alert-box">
+      <div class="icon">🚫</div>
+      <p><strong>Proibição Absoluta</strong>Não orçar instalação de mola aérea ou controle de acesso em locais onde esses equipamentos NÃO EXISTEM.</p>
+    </div>
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">Verificar e fotografar os dispositivos existentes (mola aérea, controle de acesso)</div>
+      <span class="tag tag-obrig">Obrig.</span>
+    </div>
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">Se o gerente solicitar instalação onde não existe: registrar que depende de análise de segurança e autorização formal</div>
+      <span class="tag tag-proib">Registrar</span>
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO 5 -->
+<div class="section-card" id="sec5">
+  <div class="section-header" onclick="toggleSection('sec5')">
+    <div class="section-icon">🏛️</div>
+    <div class="section-meta">
+      <div class="section-number">Item 05</div>
+      <div class="section-title">Áreas de Acesso Restrito</div>
+    </div>
+    <div class="section-progress" id="prog-sec5">0/3</div>
+    <div class="section-arrow">›</div>
+  </div>
+  <div class="section-body">
+    <div class="alert-box">
+      <div class="icon">🔐</div>
+      <p><strong>Exige Liberação</strong>Sala-cofre, CPD, arquivo, subsolo e cobertura — acesso somente com liberação expressa da gerência.</p>
+    </div>
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">Solicitar liberação formal da gerência antes de acessar áreas restritas</div>
+      <span class="tag tag-obrig">Obrig.</span>
+    </div>
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">Fotografar os ambientes autorizados (sala-cofre, CPD, arquivo, subsolo, cobertura)</div>
+      <span class="tag tag-obrig">Obrig.</span>
+    </div>
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">Registrar no relatório caso haja recusa de acesso pela gerência</div>
+      <span class="tag tag-proib">Registrar</span>
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO 6 -->
+<div class="section-card" id="sec6">
+  <div class="section-header" onclick="toggleSection('sec6')">
+    <div class="section-icon">⚠️</div>
+    <div class="section-meta">
+      <div class="section-number">Item 06</div>
+      <div class="section-title">Riscos Não Contratuais</div>
+    </div>
+    <div class="section-progress" id="prog-sec6">0/2</div>
+    <div class="section-arrow">›</div>
+  </div>
+  <div class="section-body">
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">Fotografar qualquer risco identificado, mesmo fora do escopo contratual</div>
+      <span class="tag tag-obrig">Obrig.</span>
+    </div>
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">Relatar o risco no relatório com descrição detalhada e foto evidência</div>
+      <span class="tag tag-obrig">Obrig.</span>
+    </div>
+  </div>
+</div>
+
+<!-- SEÇÃO 7 -->
+<div class="section-card" id="sec7">
+  <div class="section-header" onclick="toggleSection('sec7')">
+    <div class="section-icon">📦</div>
+    <div class="section-meta">
+      <div class="section-number">Item 07</div>
+      <div class="section-title">Descarte de Materiais do Banco</div>
+    </div>
+    <div class="section-progress" id="prog-sec7">0/2</div>
+    <div class="section-arrow">›</div>
+  </div>
+  <div class="section-body">
+    <div class="alert-box">
+      <div class="icon">🚫</div>
+      <p><strong>Proibição Absoluta</strong>Nunca orçar descarte de documentos, arquivos, papelada ou qualquer bem patrimonial do banco.</p>
+    </div>
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">Apenas registrar e fotografar materiais em situação de descarte</div>
+      <span class="tag tag-proib">Só Registrar</span>
+    </div>
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">Não incluir em orçamento qualquer item de patrimônio ou documentação do banco</div>
+      <span class="tag tag-proib">Proibido</span>
+    </div>
+  </div>
+</div>
+
+<!-- FECHAMENTO OBRIGATÓRIO -->
+<div class="closing-section">
+  <div class="closing-title">📌 Fechamento Obrigatório do Relatório</div>
+  <div id="sec-fech">
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">A — Fotos do uso de EPI conforme NR-6 (capacete, luvas, óculos, colete, etc.)</div>
+      <span class="tag tag-obrig">Obrig.</span>
+    </div>
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">B — Sinalização utilizada durante o serviço (cones, fita de segurança, placas)</div>
+      <span class="tag tag-obrig">Obrig.</span>
+    </div>
+    <div class="check-item" onclick="toggleItem(this)">
+      <div class="check-box"><span class="check-tick">✓</span></div>
+      <div class="check-text">C — Condições dos ambientes técnicos: organizados ou obstruídos (registrar estado)</div>
+      <span class="tag tag-obrig">Obrig.</span>
+    </div>
+  </div>
+</div>
+
+<!-- REGRAS FINAIS -->
+<div class="rules-grid">
+  <div class="rule-card">
+    <div class="rule-icon">📸</div>
+    <p>Fotografar tudo — evidência visual evita glosa</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-icon">🚨</div>
+    <p>Risco = sempre relatar, independente do contrato</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-icon">🏦</div>
+    <p>Nunca assumir descarte de patrimônio do banco</p>
+  </div>
+  <div class="rule-card">
+    <div class="rule-icon">✅</div>
+    <p>Sem foto, sem evidência — sem evidência, sem pagamento</p>
+  </div>
+</div>
+
+<!-- BOTÕES -->
+<div class="action-bar">
+  <button class="btn btn-primary" onclick="gerarResumo()">📋 Gerar Resumo WhatsApp</button>
+  <button class="btn btn-ghost" onclick="resetAll()">↺ Reiniciar Checklist</button>
+</div>
+
+<footer>MAFFENG Engenharia e Manutenção · Levantamento Preventivo · Padrão Interno</footer>
+
+</div><!-- /container -->
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-title">📋 Resumo para WhatsApp</div>
+    <div class="modal-content" id="modalText"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="fecharModal()">Fechar</button>
+      <button class="btn btn-primary" onclick="copiarTexto()">📋 Copiar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const sectionNames = {
+    sec1: 'Casa de Máquinas',
+    sec2: 'Bomba, Barrilete e Reservatórios',
+    sec3: 'Ambientes Inativos',
+    sec4: 'Mola Aérea e Controle de Acesso',
+    sec5: 'Áreas de Acesso Restrito',
+    sec6: 'Riscos Não Contratuais',
+    sec7: 'Descarte de Materiais',
+  };
+
+  function toggleTheme() {
+    const isDark = document.documentElement.classList.toggle('dark');
+    document.getElementById('themeBtn').textContent = isDark ? '☀️ Claro' : '🌙 Escuro';
+    localStorage.setItem('maffeng-theme', isDark ? 'dark' : 'light');
+  }
+
+  (function initTheme() {
+    const saved = localStorage.getItem('maffeng-theme');
+    if (saved === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.getElementById('themeBtn').textContent = '☀️ Claro';
+    }
+  })();
+
+  function toggleSection(id) {
+    document.getElementById(id).classList.toggle('open');
+  }
+
+  function toggleItem(el) {
+    el.classList.toggle('checked');
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const allItems = document.querySelectorAll('.check-item');
+    const checkedItems = document.querySelectorAll('.check-item.checked');
+    const total = allItems.length;
+    const done = checkedItems.length;
+
+    document.getElementById('progressCount').textContent = `${done} / ${total}`;
+    document.getElementById('progressBar').style.width = total ? `${(done / total) * 100}%` : '0%';
+
+    ['sec1','sec2','sec3','sec4','sec5','sec6','sec7'].forEach(id => {
+      const card = document.getElementById(id);
+      if (!card) return;
+      const items = card.querySelectorAll('.check-item');
+      const checked = card.querySelectorAll('.check-item.checked');
+      const prog = document.getElementById('prog-' + id);
+      if (prog) prog.textContent = `${checked.length}/${items.length}`;
+      if (items.length > 0 && checked.length === items.length) {
+        card.classList.add('all-done');
+      } else {
+        card.classList.remove('all-done');
+      }
+    });
+  }
+
+  function resetAll() {
+    if (!confirm('Deseja reiniciar o checklist?')) return;
+    document.querySelectorAll('.check-item').forEach(el => el.classList.remove('checked'));
+    updateProgress();
+  }
+
+  function gerarResumo() {
+    const now = new Date();
+    const data = now.toLocaleDateString('pt-BR');
+    const hora = now.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+
+    const levantamento = document.getElementById('inputLevantamento').value.trim() || '(não informado)';
+    const prefixo = document.getElementById('inputPrefixo').value.trim();
+    const tecnico = document.getElementById('inputTecnico').value.trim() || '(não informado)';
+    const contrato = document.getElementById('inputContrato').value || '(não selecionado)';
+    const tituloAgencia = prefixo ? `${levantamento} — Prefixo ${prefixo}` : levantamento;
+
+    let texto = `📋 *LEVANTAMENTO PREVENTIVO*\n`;
+    texto += `🏢 *${tituloAgencia}*\n`;
+    texto += `👷 Técnico: *${tecnico}*\n`;
+    texto += `📄 Contrato: *${contrato}*\n`;
+    texto += `📅 Data: ${data} às ${hora}\n`;
+    texto += `${'─'.repeat(36)}\n\n`;
+
+    const allItems = document.querySelectorAll('.check-item');
+    const done = document.querySelectorAll('.check-item.checked').length;
+    const total = allItems.length;
+    const pct = Math.round((done / total) * 100);
+
+    texto += `📊 *PROGRESSO: ${done}/${total} (${pct}%)*\n\n`;
+
+    ['sec1','sec2','sec3','sec4','sec5','sec6','sec7'].forEach(id => {
+      const card = document.getElementById(id);
+      if (!card) return;
+      const items = card.querySelectorAll('.check-item');
+      const checked = card.querySelectorAll('.check-item.checked');
+      const allOk = items.length > 0 && checked.length === items.length;
+      const status = allOk ? '✅' : checked.length > 0 ? '🔄' : '⏳';
+      texto += `${status} *${sectionNames[id]}* (${checked.length}/${items.length})\n`;
+    });
+
+    const fechItems = document.querySelectorAll('#sec-fech .check-item');
+    const fechDone = document.querySelectorAll('#sec-fech .check-item.checked').length;
+    const fechOk = fechDone === fechItems.length;
+    texto += `${fechOk ? '✅' : fechDone > 0 ? '🔄' : '⏳'} *Fechamento do Relatório* (${fechDone}/${fechItems.length})\n\n`;
+
+    const pendentes = [];
+    document.querySelectorAll('.check-item:not(.checked)').forEach(el => {
+      pendentes.push('• ' + el.querySelector('.check-text').textContent.trim().substring(0, 60) + '...');
+    });
+
+    if (pendentes.length > 0) {
+      texto += `${'─'.repeat(36)}\n`;
+      texto += `⚠️ *ITENS PENDENTES (${pendentes.length}):*\n`;
+      pendentes.slice(0, 8).forEach(p => texto += p + '\n');
+      if (pendentes.length > 8) texto += `... e mais ${pendentes.length - 8} itens\n`;
+    } else {
+      texto += `${'─'.repeat(36)}\n`;
+      texto += `🎉 *TODOS OS ITENS CONCLUÍDOS!*\n`;
+    }
+
+    texto += `\n_Gerado via Checklist Maffeng_`;
+
+    document.getElementById('modalText').textContent = texto;
+    document.getElementById('modal').classList.add('show');
+  }
+
+  function fecharModal() {
+    document.getElementById('modal').classList.remove('show');
+  }
+
+  function copiarTexto() {
+    const txt = document.getElementById('modalText').textContent;
+    navigator.clipboard.writeText(txt).then(() => {
+      const btn = event.target;
+      btn.textContent = '✅ Copiado!';
+      setTimeout(() => btn.textContent = '📋 Copiar', 2000);
+    });
+  }
+
+  document.getElementById('modal').addEventListener('click', function(e) {
+    if (e.target === this) fecharModal();
+  });
+
+  updateProgress();
+</script>
+</body>
+</html>

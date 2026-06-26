@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Skills Session Log — TM Sempre Tecnologia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+
+    :root {
+      --bg:        #06060f;
+      --bg2:       #0d0d1a;
+      --surface:   rgba(255,255,255,0.04);
+      --border:    rgba(255,255,255,0.08);
+      --text:      #f0f0ff;
+      --muted:     rgba(240,240,255,0.45);
+      --purple:    #7c3aed;
+      --purple-l:  #a78bfa;
+      --cyan:      #06b6d4;
+      --cyan-l:    #67e8f9;
+      --pink:      #ec4899;
+      --pink-l:    #f9a8d4;
+      --green:     #10b981;
+      --green-l:   #6ee7b7;
+      --font-h:    'Space Grotesk', sans-serif;
+      --font-b:    'DM Sans', sans-serif;
+      --font-m:    'DM Mono', monospace;
+      --radius:    20px;
+      --gap:       16px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-b);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── MESH GRADIENT BG ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 50% at 10% 20%, rgba(124,58,237,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 90% 80%, rgba(6,182,212,0.14) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 60% 10%, rgba(236,72,153,0.10) 0%, transparent 60%);
+    }
+
+    /* ── NOISE TEXTURE ── */
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    .wrap { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 48px 32px 80px; }
+
+    /* ── HEADER ── */
+    .session-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 32px; margin-bottom: 48px;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp .6s .1s ease forwards;
+    }
+    .session-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-m); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--purple-l); margin-bottom: 12px;
+    }
+    .session-eyebrow::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--purple-l);
+      box-shadow: 0 0 8px var(--purple);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
+
+    .session-title {
+      font-family: var(--font-h); font-weight: 800; font-size: clamp(2.4rem, 5vw, 3.8rem);
+      line-height: 1.05; letter-spacing: -0.03em; color: var(--text);
+    }
+    .session-title .grad {
+      background: linear-gradient(135deg, var(--purple-l), var(--cyan-l), var(--pink-l));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .session-sub {
+      margin-top: 12px; font-size: 15px; color: var(--muted); max-width: 480px; line-height: 1.7;
+    }
+
+    .session-meta {
+      flex-shrink: 0; text-align: right;
+      font-family: var(--font-m); font-size: 11px; color: var(--muted);
+      line-height: 1.9;
+    }
+    .session-meta strong { color: var(--text); font-size: 13px; }
+    .session-id {
+      margin-top: 12px; display: inline-block;
+      background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.3);
+      border-radius: 6px; padding: 4px 12px;
+      font-family: var(--font-m); font-size: 10px; color: var(--purple-l);
+      letter-spacing: 0.12em;
+    }
+
+    /* ── STATS ROW ── */
+    .stats-row {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap);
+      margin-bottom: var(--gap);
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp .6s .25s ease forwards;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px; padding: 20px 24px;
+      position: relative; overflow: hidden;
+      cursor: default;
+      transition: border-color .25s, transform .25s;
+    }
+    .stat-card:hover { border-color: rgba(255,255,255,0.16); transform: translateY(-2px); }
+    .stat-card::before {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+    }
+    .stat-card.s-purple::before { background: linear-gradient(90deg, var(--purple), var(--purple-l)); }
+    .stat-card.s-cyan::before   { background: linear-gradient(90deg, var(--cyan), var(--cyan-l)); }
+    .stat-card.s-pink::before   { background: linear-gradient(90deg, var(--pink), var(--pink-l)); }
+    .stat-card.s-green::before  { background: linear-gradient(90deg, var(--green), var(--green-l)); }
+
+    .stat-n {
+      font-family: var(--font-h); font-weight: 800; font-size: 2.4rem;
+      line-height: 1; margin-bottom: 6px;
+    }
+    .s-purple .stat-n { color: var(--purple-l); }
+    .s-cyan   .stat-n { color: var(--cyan-l); }
+    .s-pink   .stat-n { color: var(--pink-l); }
+    .s-green  .stat-n { color: var(--green-l); }
+
+    .stat-l { font-size: 12px; color: var(--muted); font-weight: 500; letter-spacing: 0.02em; }
+
+    /* ── BENTO GRID ── */
+    .bento {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      grid-template-rows: auto auto;
+      gap: var(--gap);
+      margin-bottom: var(--gap);
+    }
+
+    /* ── SKILL CARD BASE ── */
+    .skill-card {
+      border-radius: var(--radius);
+      padding: 36px;
+      position: relative; overflow: hidden;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      transition: transform .3s ease, box-shadow .3s ease;
+      opacity: 0; transform: translateY(28px);
+    }
+    .skill-card.vis { opacity: 1; transform: none; }
+    .skill-card:hover { transform: translateY(-4px); }
+
+    /* animated gradient border glow on hover */
+    .skill-card::after {
+      content: ''; position: absolute; inset: -1px; border-radius: calc(var(--radius) + 1px);
+      opacity: 0; transition: opacity .3s;
+      pointer-events: none; z-index: -1;
+    }
+    .skill-card:hover::after { opacity: 1; }
+
+    /* ── BRAINSTORMING (large, purple) ── */
+    .card-brainstorm {
+      grid-row: 1 / 3;
+      background: linear-gradient(145deg, #1a0f2e 0%, #0f0a1e 60%, #0d0d1a 100%);
+    }
+    .card-brainstorm::after {
+      background: linear-gradient(135deg, rgba(124,58,237,0.5), rgba(167,139,250,0.2));
+    }
+    .card-brainstorm:hover { box-shadow: 0 20px 60px rgba(124,58,237,0.25); }
+
+    /* ── TM-TESTES (cyan) ── */
+    .card-testes {
+      background: linear-gradient(145deg, #071a1f 0%, #060d0f 60%, #0d0d1a 100%);
+    }
+    .card-testes::after {
+      background: linear-gradient(135deg, rgba(6,182,212,0.4), rgba(103,232,249,0.2));
+    }
+    .card-testes:hover { box-shadow: 0 20px 60px rgba(6,182,212,0.2); }
+
+    /* ── UI-UX PRO MAX (pink/orange) ── */
+    .card-uipro {
+      background: linear-gradient(145deg, #1f0d18 0%, #120a0f 60%, #0d0d1a 100%);
+    }
+    .card-uipro::after {
+      background: linear-gradient(135deg, rgba(236,72,153,0.4), rgba(249,115,22,0.25));
+    }
+    .card-uipro:hover { box-shadow: 0 20px 60px rgba(236,72,153,0.2); }
+
+    /* ── SKILL CARD INTERNALS ── */
+    .skill-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-m); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+      border-radius: 6px; padding: 5px 12px; margin-bottom: 28px;
+      font-weight: 500;
+    }
+    .badge-purple { background: rgba(124,58,237,0.2); color: var(--purple-l); border: 1px solid rgba(124,58,237,0.3); }
+    .badge-cyan   { background: rgba(6,182,212,0.15); color: var(--cyan-l);   border: 1px solid rgba(6,182,212,0.3); }
+    .badge-pink   { background: rgba(236,72,153,0.15); color: var(--pink-l);  border: 1px solid rgba(236,72,153,0.3); }
+
+    .skill-icon {
+      width: 56px; height: 56px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px; flex-shrink: 0;
+    }
+    .icon-purple { background: linear-gradient(135deg, var(--purple), #4f46e5); box-shadow: 0 8px 24px rgba(124,58,237,0.4); }
+    .icon-cyan   { background: linear-gradient(135deg, var(--cyan), #0891b2);   box-shadow: 0 8px 24px rgba(6,182,212,0.35); }
+    .icon-pink   { background: linear-gradient(135deg, var(--pink), #f97316);   box-shadow: 0 8px 24px rgba(236,72,153,0.35); }
+    .skill-icon svg { width: 26px; height: 26px; stroke: #fff; fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+
+    .skill-name {
+      font-family: var(--font-h); font-weight: 800; font-size: 1.75rem;
+      line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 10px;
+    }
+    .card-brainstorm .skill-name { font-size: 2.2rem; }
+
+    .skill-desc {
+      font-size: 14px; color: var(--muted); line-height: 1.75;
+      margin-bottom: 28px; max-width: 420px;
+    }
+    .card-brainstorm .skill-desc { font-size: 15px; max-width: 100%; }
+
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+    .tag {
+      font-family: var(--font-m); font-size: 10px; letter-spacing: 0.08em;
+      padding: 4px 10px; border-radius: 4px; font-weight: 500;
+    }
+    .tag-purple { background: rgba(124,58,237,0.12); color: rgba(167,139,250,0.9); }
+    .tag-cyan   { background: rgba(6,182,212,0.12);  color: rgba(103,232,249,0.9); }
+    .tag-pink   { background: rgba(236,72,153,0.12); color: rgba(249,168,212,0.9); }
+
+    .skill-outputs {
+      display: flex; flex-direction: column; gap: 10px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 24px; margin-top: auto;
+    }
+    .card-brainstorm .skill-outputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .output-item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; color: var(--muted);
+    }
+    .output-dot {
+      width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0;
+    }
+    .dot-purple { background: var(--purple-l); box-shadow: 0 0 6px var(--purple); }
+    .dot-cyan   { background: var(--cyan-l);   box-shadow: 0 0 6px var(--cyan); }
+    .dot-pink   { background: var(--pink-l);   box-shadow: 0 0 6px var(--pink); }
+
+    /* ── TIMELINE ── */
+    .timeline-section {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 36px;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp .6s .6s ease forwards;
+      margin-bottom: var(--gap);
+    }
+    .timeline-title {
+      font-family: var(--font-h); font-weight: 700; font-size: 1rem;
+      letter-spacing: -0.01em; margin-bottom: 28px;
+      display: flex; align-items: center; gap: 10px;
+      color: var(--muted);
+    }
+    .timeline-title span { color: var(--text); }
+    .timeline-line { flex: 1; height: 1px; background: var(--border); }
+
+    .timeline-track {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 4px; align-items: center;
+    }
+    .t-item {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      cursor: default;
+    }
+    .t-dot {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-m); font-size: 10px; font-weight: 500;
+      border: 1px solid var(--border);
+      background: var(--bg2); color: var(--muted);
+      transition: all .2s;
+    }
+    .t-item:hover .t-dot {
+      background: rgba(124,58,237,0.2); border-color: var(--purple-l);
+      color: var(--purple-l); transform: translateY(-2px);
+    }
+    .t-label {
+      font-family: var(--font-m); font-size: 9px; color: rgba(240,240,255,0.3);
+      letter-spacing: 0.06em; text-align: center; line-height: 1.3;
+    }
+    .t-connector {
+      height: 1px; background: linear-gradient(90deg, var(--border), rgba(124,58,237,0.3), var(--border));
+      align-self: flex-start; margin-top: 16px;
+    }
+
+    /* ── FOOTER CARD ── */
+    .footer-card {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 24px 36px;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp .6s .75s ease forwards;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-brand {
+      font-family: var(--font-h); font-weight: 700; font-size: 14px;
+      color: var(--muted);
+    }
+    .footer-brand strong { color: var(--text); }
+    .footer-pill {
+      display: flex; align-items: center; gap: 8px;
+      font-family: var(--font-m); font-size: 10px;
+      color: var(--muted); letter-spacing: 0.1em;
+    }
+    .footer-pill::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green-l); box-shadow: 0 0 8px var(--green);
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    .footer-stack { display: flex; gap: 8px; }
+    .stack-tag {
+      font-family: var(--font-m); font-size: 9px; letter-spacing: 0.1em;
+      padding: 3px 10px; border-radius: 4px;
+      background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes gradShift {
+      0%,100% { background-position: 0% 50%; }
+      50%      { background-position: 100% 50%; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .bento { grid-template-columns: 1fr; }
+      .card-brainstorm { grid-row: auto; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .timeline-track { grid-template-columns: repeat(5, 1fr); }
+      .t-item:nth-child(n+11) { display: none; }
+    }
+    @media (max-width: 540px) {
+      .wrap { padding: 32px 20px 60px; }
+      .session-header { flex-direction: column; }
+      .session-meta { text-align: left; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .card-brainstorm .skill-outputs { grid-template-columns: 1fr; }
+      .footer-card { flex-direction: column; align-items: flex-start; }
+      .timeline-track { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <header class="session-header">
+    <div>
+      <div class="session-eyebrow">Skills Session Log</div>
+      <h1 class="session-title">
+        Três skills.<br>
+        <span class="grad">Uma sessão de criação.</span>
+      </h1>
+      <p class="session-sub">
+        Registro completo das ferramentas de IA ativas na sessão de redesign do site MAFFENG — do planejamento ao teste automatizado.
+      </p>
+    </div>
+    <div class="session-meta">
+      <div><strong>01 / 06 / 2026</strong></div>
+      <div>TM Sempre Tecnologia</div>
+      <div>Projeto: MAFFENG Site</div>
+      <div>V15 → V23 · 9 versões</div>
+      <div class="session-id">SESSION-2606-TM01</div>
+    </div>
+  </header>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card s-purple">
+      <div class="stat-n">9</div>
+      <div class="stat-l">Versões geradas</div>
+    </div>
+    <div class="stat-card s-cyan">
+      <div class="stat-n">15/15</div>
+      <div class="stat-l">Testes passando</div>
+    </div>
+    <div class="stat-card s-pink">
+      <div class="stat-n">3</div>
+      <div class="stat-l">Skills ativas</div>
+    </div>
+    <div class="stat-card s-green">
+      <div class="stat-n">100%</div>
+      <div class="stat-l">Taxa de aprovação</div>
+    </div>
+  </div>
+
+  <!-- BENTO GRID -->
+  <div class="bento">
+
+    <!-- BRAINSTORMING -->
+    <article class="skill-card card-brainstorm" id="card1">
+      <div class="skill-badge badge-purple">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        Skill Ativa
+      </div>
+      <div class="skill-icon icon-purple">
+        <svg viewBox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+      </div>
+      <h2 class="skill-name">brainstorming</h2>
+      <p class="skill-desc">
+        Exploração de intenção e requisitos antes de qualquer implementação. Propôs 3 abordagens para o redesign da seção de serviços, conduziu o planejamento do ticker strip e registrou todas as decisões arquiteturais da sessão.
+      </p>
+      <div class="skill-tags">
+        <span class="tag tag-purple">Análise de Requisitos</span>
+        <span class="tag tag-purple">3 Abordagens</span>
+        <span class="tag tag-purple">Hard Gate</span>
+        <span class="tag tag-purple">Plano Aprovado</span>
+        <span class="tag tag-purple">Anti-Pattern Guard</span>
+      </div>
+      <div class="skill-outputs">
+        <div class="output-item"><span class="output-dot dot-purple"></span>Redesign seção serviços → 2×2 grid</div>
+        <div class="output-item"><span class="output-dot dot-purple"></span>Trust badges → ticker marquee</div>
+        <div class="output-item"><span class="output-dot dot-purple"></span>Copy sem citar clientes</div>
+        <div class="output-item"><span class="output-dot dot-purple"></span>4 itens validados pelo usuário</div>
+        <div class="output-item"><span class="output-dot dot-purple"></span>Plano aprovado antes do código</div>
+        <div class="output-item"><span class="output-dot dot-purple"></span>Nenhuma sobreposição de arquivo</div>
+      </div>
+    </article>
+
+    <!-- TM-TESTES -->
+    <article class="skill-card card-testes" id="card2">
+      <div class="skill-badge badge-cyan">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Skill Ativa
+      </div>
+      <div class="skill-icon icon-cyan">
+        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+      </div>
+      <h2 class="skill-name">tm-testes</h2>
+      <p class="skill-desc">Automação E2E com Playwright. Validou o V16 em 3 viewports com 15 testes de design — estrutura, hover states, responsivo e erros de console.</p>
+      <div class="skill-tags">
+        <span class="tag tag-cyan">Playwright</span>
+        <span class="tag tag-cyan">15 Testes</span>
+        <span class="tag tag-cyan">3 Viewports</span>
+        <span class="tag tag-cyan">Screenshots</span>
+      </div>
+      <div class="skill-outputs">
+        <div class="output-item"><span class="output-dot dot-cyan"></span>15/15 testes aprovados</div>
+        <div class="output-item"><span class="output-dot dot-cyan"></span>7 screenshots capturadas</div>
+        <div class="output-item"><span class="output-dot dot-cyan"></span>Zero erros de console</div>
+      </div>
+    </article>
+
+    <!-- UI-UX PRO MAX -->
+    <article class="skill-card card-uipro" id="card3">
+      <div class="skill-badge badge-pink">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/></svg>
+        Skill Ativa
+      </div>
+      <div class="skill-icon icon-pink">
+        <svg viewBox="0 0 24 24"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      </div>
+      <h2 class="skill-name">ui-ux-pro-max</h2>
+      <p class="skill-desc">67 estilos, 96 paletas, design system gerado por script Python. Criou esta própria página com Bento Grid + Space Grotesk.</p>
+      <div class="skill-tags">
+        <span class="tag tag-pink">Bento Grid</span>
+        <span class="tag tag-pink">Design System</span>
+        <span class="tag tag-pink">Space Grotesk</span>
+        <span class="tag tag-pink">uipro init</span>
+      </div>
+      <div class="skill-outputs">
+        <div class="output-item"><span class="output-dot dot-pink"></span>Design system gerado via script</div>
+        <div class="output-item"><span class="output-dot dot-pink"></span>Paleta: purple × cyan × pink</div>
+        <div class="output-item"><span class="output-dot dot-pink"></span>Esta página como output</div>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="timeline-section">
+    <div class="timeline-title">
+      <span>Linha do tempo</span>
+      <div class="timeline-line"></div>
+      V15 → V23
+    </div>
+    <div class="timeline-track">
+      <div class="t-item">
+        <div class="t-dot">V15</div>
+        <div class="t-label">Base</div>
+      </div>
+      <div class="t-connector"></div>
+      <div class="t-item">
+        <div class="t-dot">V16</div>
+        <div class="t-label">Serviços 2×2</div>
+      </div>
+      <div class="t-connector"></div>
+      <div class="t-item">
+        <div class="t-dot">V17</div>
+        <div class="t-label">Ticker Strip</div>
+      </div>
+      <div class="t-connector"></div>
+      <div class="t-item">
+        <div class="t-dot">V18</div>
+        <div class="t-label">Logos</div>
+      </div>
+      <div class="t-connector"></div>
+      <div class="t-item">
+        <div class="t-dot">V19</div>
+        <div class="t-label">Velocidade</div>
+      </div>
+      <div class="t-connector"></div>
+      <div class="t-item">
+        <div class="t-dot">V20</div>
+        <div class="t-label">Ticker Branco</div>
+      </div>
+      <div class="t-connector"></div>
+      <div class="t-item">
+        <div class="t-dot">V21</div>
+        <div class="t-label">Fonte+</div>
+      </div>
+      <div class="t-connector"></div>
+      <div class="t-item">
+        <div class="t-dot">V22</div>
+        <div class="t-label">Base V20</div>
+      </div>
+      <div class="t-connector"></div>
+      <div class="t-item">
+        <div class="t-dot">V23</div>
+        <div class="t-label">Números</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-card">
+    <div class="footer-brand">
+      <strong>TM Sempre Tecnologia</strong> · Skills Session Log · Projeto MAFFENG
+    </div>
+    <div class="footer-pill">Sessão encerrada com sucesso</div>
+    <div class="footer-stack">
+      <span class="stack-tag">HTML puro</span>
+      <span class="stack-tag">CSS animado</span>
+      <span class="stack-tag">Playwright</span>
+      <span class="stack-tag">Claude Sonnet 4.6</span>
+    </div>
+  </div>
+
+</div>
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const i = +el.dataset.i || 0;
+      setTimeout(() => el.classList.add('vis'), i * 150);
+      io.unobserve(el);
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.skill-card').forEach((el, i) => {
+    el.dataset.i = i;
+    io.observe(el);
+  });
+</script>
+</body>
+</html>

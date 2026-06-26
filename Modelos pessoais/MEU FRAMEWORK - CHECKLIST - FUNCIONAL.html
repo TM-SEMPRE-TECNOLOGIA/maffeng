@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist de Relatório Fotográfico</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .project-info {
+            padding: 30px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #495057;
+            font-size: 14px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .checklist {
+            padding: 30px;
+        }
+
+        .checklist-item {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+
+        .checklist-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .checklist-item.completed {
+            background: #f0fdf4;
+            border-color: #86efac;
+        }
+
+        .item-header {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .checkbox-wrapper {
+            margin-right: 15px;
+        }
+
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: #667eea;
+        }
+
+        .item-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #212529;
+            flex: 1;
+        }
+
+        .item-description {
+            margin-left: 39px;
+            margin-top: 8px;
+            color: #6c757d;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .progress-section {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .progress-bar-container {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 30px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: #495057;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .saved-reports {
+            padding: 30px;
+            background: #fff;
+            border-top: 2px solid #e9ecef;
+        }
+
+        .saved-reports h3 {
+            margin-bottom: 20px;
+            color: #212529;
+        }
+
+        .report-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .report-card:hover {
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .report-info {
+            flex: 1;
+        }
+
+        .report-name {
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 5px;
+        }
+
+        .report-prefix {
+            font-size: 12px;
+            color: #6c757d;
+        }
+
+        .report-progress {
+            font-size: 12px;
+            color: #667eea;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .report-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-load {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-load:hover {
+            background: #5568d3;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #c82333;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+
+        .empty-state svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            .button-group {
+                flex-direction: column;
+            }
+
+            .report-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .report-actions {
+                margin-top: 10px;
+                width: 100%;
+            }
+
+            .btn-small {
+                flex: 1;
+            }
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .notification.success {
+            border-left: 4px solid #10b981;
+        }
+
+        .notification.error {
+            border-left: 4px solid #ef4444;
+        }
+
+        .notification.show {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📸 Checklist de Relatório Fotográfico</h1>
+            <p>Framework completo para execução de relatórios</p>
+        </div>
+
+        <div class="project-info">
+            <div class="input-group">
+                <label for="reportName">Nome do Relatório</label>
+                <input type="text" id="reportName" placeholder="Ex: Vistoria Edifício Central">
+            </div>
+            <div class="input-group">
+                <label for="reportPrefix">Prefixo/Código</label>
+                <input type="text" id="reportPrefix" placeholder="Ex: REL-2024-001">
+            </div>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="saveReport()">💾 Salvar Relatório</button>
+                <button class="btn btn-secondary" onclick="newReport()">📝 Novo Relatório</button>
+                <button class="btn btn-danger" onclick="clearCurrent()">🗑️ Limpar</button>
+            </div>
+        </div>
+
+        <div class="checklist" id="checklist">
+            <!-- Items serão gerados pelo JavaScript -->
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar">0%</div>
+            </div>
+            <div class="progress-text" id="progressText">0 de 7 itens concluídos</div>
+        </div>
+
+        <div class="saved-reports">
+            <h3>📋 Relatórios Salvos</h3>
+            <div id="savedReportsList">
+                <!-- Lista de relatórios salvos -->
+            </div>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">
+        <span id="notificationText"></span>
+    </div>
+
+    <script>
+        const checklistItems = [
+            {
+                id: 1,
+                title: "Organização Fotográfica",
+                description: "Separar e selecionar as fotos brutas que serão usadas"
+            },
+            {
+                id: 2,
+                title: "Formatação Documental",
+                description: "Preparar o arquivo Word com layout padrão"
+            },
+            {
+                id: 3,
+                title: "Identificação de Elementos",
+                description: "Marcação dos pontos relevantes nas imagens"
+            },
+            {
+                id: 4,
+                title: "Anotação Dimensional",
+                description: "Inserir balões/indicadores de medidas"
+            },
+            {
+                id: 5,
+                title: "Descrição Técnica",
+                description: "Detalhar cada elemento destacado com texto claro"
+            },
+            {
+                id: 6,
+                title: "Memorial de Cálculo",
+                description: "Apresentar os cálculos de quantitativos e medições"
+            },
+            {
+                id: 7,
+                title: "Memorial de Itens",
+                description: "Listagem consolidada dos itens identificados, já com referência ao contrato/normas"
+            }
+        ];
+
+        let currentReport = {
+            name: '',
+            prefix: '',
+            checklist: {},
+            lastModified: null
+        };
+
+        function initChecklist() {
+            const container = document.getElementById('checklist');
+            container.innerHTML = '';
+
+            checklistItems.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'checklist-item';
+                itemDiv.id = `item-${item.id}`;
+                
+                const isChecked = currentReport.checklist[item.id] || false;
+                if (isChecked) {
+                    itemDiv.classList.add('completed');
+                }
+
+                itemDiv.innerHTML = `
+                    <div class="item-header" onclick="toggleItem(${item.id})">
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox" id="check-${item.id}" ${isChecked ? 'checked' : ''} onchange="toggleItem(${item.id})">
+                        </div>
+                        <div class="item-title">${item.id}. ${item.title}</div>
+                    </div>
+                    <div class="item-description">${item.description}</div>
+                `;
+
+                container.appendChild(itemDiv);
+            });
+
+            updateProgress();
+        }
+
+        function toggleItem(id) {
+            currentReport.checklist[id] = !currentReport.checklist[id];
+            
+            const itemDiv = document.getElementById(`item-${id}`);
+            const checkbox = document.getElementById(`check-${id}`);
+            
+            if (currentReport.checklist[id]) {
+                itemDiv.classList.add('completed');
+                checkbox.checked = true;
+            } else {
+                itemDiv.classList.remove('completed');
+                checkbox.checked = false;
+            }
+
+            updateProgress();
+            autoSave();
+        }
+
+        function updateProgress() {
+            const completed = Object.values(currentReport.checklist).filter(v => v).length;
+            const total = checklistItems.length;
+            const percentage = Math.round((completed / total) * 100);
+
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressBar').textContent = percentage + '%';
+            document.getElementById('progressText').textContent = `${completed} de ${total} itens concluídos`;
+        }
+
+        function saveReport() {
+            const name = document.getElementById('reportName').value.trim();
+            const prefix = document.getElementById('reportPrefix').value.trim();
+
+            if (!name) {
+                showNotification('Por favor, insira o nome do relatório', 'error');
+                return;
+            }
+
+            currentReport.name = name;
+            currentReport.prefix = prefix;
+            currentReport.lastModified = new Date().toISOString();
+
+            let reports = JSON.parse(localStorage.getItem('reports') || '[]');
+            
+            const existingIndex = reports.findIndex(r => r.prefix === prefix || r.name === name);
+            
+            if (existingIndex >= 0) {
+                reports[existingIndex] = currentReport;
+                showNotification('Relatório atualizado com sucesso!', 'success');
+            } else {
+                reports.push(currentReport);
+                showNotification('Relatório salvo com sucesso!', 'success');
+            }
+
+            localStorage.setItem('reports', JSON.stringify(reports));
+            loadSavedReports();
+        }
+
+        function autoSave() {
+            const name = document.getElementById('reportName').value.trim();
+            if (name) {
+                currentReport.name = name;
+                currentReport.prefix = document.getElementById('reportPrefix').value.trim();
+                currentReport.lastModified = new Date().toISOString();
+
+                let reports = JSON.parse(localStorage.getItem('reports') || '[]');
+                const existingIndex = reports.findIndex(r => r.name === name);
+                
+                if (existingIndex >= 0) {
+                    reports[existingIndex] = currentReport;
+                    localStorage.setItem('reports', JSON.stringify(reports));
+                }
+            }
+        }
+
+        function loadReport(index) {
+            const reports = JSON.parse(localStorage.getItem('reports') || '[]');
+            if (reports[index]) {
+                currentReport = reports[index];
+                document.getElementById('reportName').value = currentReport.name;
+                document.getElementById('reportPrefix').value = currentReport.prefix;
+                initChecklist();
+                showNotification('Relatório carregado!', 'success');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function deleteReport(index) {
+            if (confirm('Tem certeza que deseja excluir este relatório?')) {
+                let reports = JSON.parse(localStorage.getItem('reports') || '[]');
+                reports.splice(index, 1);
+                localStorage.setItem('reports', JSON.stringify(reports));
+                loadSavedReports();
+                showNotification('Relatório excluído', 'success');
+            }
+        }
+
+        function newReport() {
+            if (Object.keys(currentReport.checklist).length > 0) {
+                if (!confirm('Deseja criar um novo relatório? O progresso atual não salvo será perdido.')) {
+                    return;
+                }
+            }
+
+            currentReport = {
+                name: '',
+                prefix: '',
+                checklist: {},
+                lastModified: null
+            };
+
+            document.getElementById('reportName').value = '';
+            document.getElementById('reportPrefix').value = '';
+            initChecklist();
+            showNotification('Novo relatório iniciado', 'success');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function clearCurrent() {
+            if (confirm('Deseja limpar o relatório atual?')) {
+                currentReport.checklist = {};
+                initChecklist();
+                showNotification('Checklist limpo', 'success');
+            }
+        }
+
+        function loadSavedReports() {
+            const reports = JSON.parse(localStorage.getItem('reports') || '[]');
+            const container = document.getElementById('savedReportsList');
+
+            if (reports.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        <p>Nenhum relatório salvo ainda</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = reports.map((report, index) => {
+                const completed = Object.values(report.checklist).filter(v => v).length;
+                const total = checklistItems.length;
+                const percentage = Math.round((completed / total) * 100);
+
+                return `
+                    <div class="report-card">
+                        <div class="report-info">
+                            <div class="report-name">${report.name}</div>
+                            <div class="report-prefix">Código: ${report.prefix || 'Não definido'}</div>
+                            <div class="report-progress">${percentage}% concluído (${completed}/${total})</div>
+                        </div>
+                        <div class="report-actions">
+                            <button class="btn-small btn-load" onclick="loadReport(${index})">Carregar</button>
+                            <button class="btn-small btn-delete" onclick="deleteReport(${index})">Excluir</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
+            
+            notificationText.textContent = message;
+            notification.className = `notification ${type} show`;
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Inicializar
+        initChecklist();
+        loadSavedReports();
+
+        // Salvar automaticamente a cada 30 segundos
+        setInterval(autoSave, 30000);
+    </script>
+</body>
+</html>

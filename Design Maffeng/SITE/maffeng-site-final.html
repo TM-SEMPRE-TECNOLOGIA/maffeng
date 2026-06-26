@@ -1,0 +1,1124 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MAFFENG — Engenharia e Manutenção</title>
+  <meta name="description" content="Referência nacional na prestação de serviços de engenharia e manutenção predial. 5 anos de experiência, 385 cidades atendidas.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── TOKENS ─────────────────────────────────────── */
+    :root {
+      --red:      #e20014;
+      --red-d:    #b8000f;
+      --red-glow: rgba(226,0,20,0.22);
+      --navy:     #181f4b;
+      --dark:     #111111;
+      --dark2:    #161616;
+      --dark3:    #1e1e1e;
+      --black:    #0d0d0d;
+      --white:    #ffffff;
+      --light:    #f5f5f3;
+      --muted:    rgba(255,255,255,0.5);
+      --border:   rgba(255,255,255,0.08);
+      --gray-txt: #99999d;
+      --font:     'Montserrat', sans-serif;
+      --font2:    'Inter', sans-serif;
+      --radius:   4px;
+      --hh:       68px;
+    }
+
+    /* ── RESET ───────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font2); background: var(--dark); color: var(--white); line-height: 1.6; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; } }
+
+    /* ── HEADER ─────────────────────────────────────── */
+    .hdr {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--hh);
+      display: flex; align-items: center;
+      padding: 0 48px;
+      background: rgba(10,10,10,0.96);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: background .3s;
+    }
+    .hdr.scrolled { background: rgba(8,8,8,0.99); }
+
+    .logo {
+      font-family: var(--font);
+      font-weight: 900; font-size: 20px;
+      letter-spacing: 0.1em;
+      color: var(--white);
+      flex-shrink: 0;
+      margin-right: 48px;
+    }
+
+    .hdr-nav {
+      display: flex; align-items: center; gap: 2px;
+      flex: 1;
+    }
+    .hdr-nav a {
+      font-family: var(--font);
+      font-weight: 600; font-size: 11px;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      padding: 8px 14px; border-radius: var(--radius);
+      color: rgba(255,255,255,0.6);
+      transition: color .2s, background .2s;
+      position: relative;
+    }
+    .hdr-nav a:hover, .hdr-nav a.act { color: var(--white); }
+    .hdr-nav a.act::after {
+      content: '';
+      position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
+      width: 16px; height: 2px; background: var(--red); border-radius: 2px;
+    }
+
+    .hdr-cta {
+      font-family: var(--font);
+      font-weight: 700; font-size: 11px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 11px 24px;
+      background: var(--red);
+      color: var(--white);
+      border-radius: var(--radius);
+      white-space: nowrap;
+      transition: background .2s, transform .15s;
+      box-shadow: 0 4px 16px var(--red-glow);
+    }
+    .hdr-cta:hover { background: var(--red-d); transform: translateY(-1px); }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      width: 28px; cursor: pointer; margin-left: auto;
+    }
+    .hamburger span { height: 2px; background: var(--white); border-radius: 2px; transition: .3s; }
+
+    .mob-menu {
+      display: none; position: fixed; inset: var(--hh) 0 0 0;
+      background: rgba(8,8,8,0.98); backdrop-filter: blur(20px);
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 8px; z-index: 99;
+    }
+    .mob-menu.open { display: flex; }
+    .mob-menu a {
+      font-family: var(--font); font-weight: 700; font-size: 18px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: rgba(255,255,255,0.7); padding: 12px 32px;
+      transition: color .2s;
+    }
+    .mob-menu a:hover { color: var(--red); }
+
+    /* ── HERO DOBRA 1 — IMAGEM ───────────────────────── */
+    .hero-img {
+      position: relative;
+      height: 100vh; min-height: 560px;
+      overflow: hidden;
+    }
+    .hero-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      display: block;
+    }
+    .hero-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.1) 60%, rgba(13,13,13,0.95) 100%);
+    }
+    .scroll-hint {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      animation: fadeIn 1s 1.5s both;
+    }
+    .scroll-hint span {
+      font-family: var(--font); font-size: 9px; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+    .scroll-arrow {
+      width: 22px; height: 22px;
+      border-right: 2px solid rgba(255,255,255,0.3);
+      border-bottom: 2px solid rgba(255,255,255,0.3);
+      transform: rotate(45deg);
+      animation: bounce 1.4s ease-in-out infinite;
+    }
+    @keyframes bounce { 0%,100%{transform:rotate(45deg) translateY(0)} 50%{transform:rotate(45deg) translateY(6px)} }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+    /* ── HERO DOBRA 2 — TEXTO ────────────────────────── */
+    .hero-text {
+      position: relative;
+      padding: 80px 48px 64px;
+      background: var(--dark);
+      border-left: 4px solid var(--red);
+    }
+    .hero-text-inner {
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--font); font-size: 11px; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 28px;
+      opacity: 0; transform: translateY(12px);
+      transition: opacity .5s .1s, transform .5s .1s;
+    }
+    .hero-tag.vis { opacity: 1; transform: none; }
+    .hero-tag::before { content: ''; width: 24px; height: 2px; background: var(--red); }
+
+    .hero-h1 {
+      font-family: var(--font);
+      font-weight: 900;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1.1; letter-spacing: -0.02em;
+      color: var(--white);
+      max-width: 680px;
+      margin-bottom: 24px;
+      min-height: 2.5em;
+    }
+    .hero-h1 .accent { color: var(--red); }
+    .hero-h1 .cursor {
+      display: inline-block; width: 3px; height: 0.85em;
+      background: var(--red); margin-left: 3px;
+      vertical-align: middle;
+      animation: blink .75s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .hero-sub {
+      font-size: 16px; color: rgba(255,255,255,0.6);
+      max-width: 520px; line-height: 1.85;
+      margin-bottom: 40px;
+      opacity: 0; transform: translateY(12px);
+      transition: opacity .6s, transform .6s;
+    }
+    .hero-sub.vis { opacity: 1; transform: none; }
+
+    .hero-btns {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+      margin-bottom: 56px;
+      opacity: 0; transform: translateY(10px);
+      transition: opacity .5s, transform .5s;
+    }
+    .hero-btns.vis { opacity: 1; transform: none; }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font); font-weight: 700; font-size: 11px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 15px 32px;
+      background: var(--red); color: var(--white);
+      border-radius: var(--radius);
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 6px 24px var(--red-glow);
+    }
+    .btn-primary:hover { background: var(--red-d); transform: translateY(-2px); box-shadow: 0 10px 32px rgba(226,0,20,0.35); }
+
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font); font-weight: 600; font-size: 11px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 14px 28px;
+      background: transparent; color: var(--white);
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: var(--radius);
+      transition: border-color .2s, background .2s;
+    }
+    .btn-secondary:hover { border-color: var(--red); background: rgba(226,0,20,0.07); }
+
+    .trust-badges {
+      display: flex; gap: 36px; flex-wrap: wrap;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      opacity: 0; transform: translateY(10px);
+      transition: opacity .5s, transform .5s;
+    }
+    .trust-badges.vis { opacity: 1; transform: none; }
+    .badge { display: flex; align-items: center; gap: 10px; }
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
+    .badge-txt { font-family: var(--font); font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.55); }
+    .badge-txt strong { display: block; color: var(--white); font-size: 13px; }
+
+    /* ── SEÇÃO HEADER GENÉRICO ───────────────────────── */
+    .sec-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--red); margin-bottom: 14px;
+    }
+    .sec-label::before { content: ''; width: 20px; height: 2px; background: var(--red); }
+    .sec-title {
+      font-family: var(--font); font-weight: 800;
+      font-size: clamp(1.7rem, 2.8vw, 2.2rem);
+      color: var(--white); line-height: 1.2; letter-spacing: -0.01em;
+    }
+    .sec-title .accent { color: var(--red); }
+    .sec-title-dark { color: var(--navy); }
+    .sec-title-dark .accent { color: var(--red); }
+
+    /* ── S2 SERVIÇOS ─────────────────────────────────── */
+    .services { padding: 96px 48px; background: var(--dark); }
+    .services .sec-hd { max-width: 1200px; margin: 0 auto 52px; }
+
+    .svc-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 3px;
+    }
+
+    .svc-card {
+      position: relative; overflow: hidden; height: 360px; cursor: pointer;
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .svc-card.vis { opacity: 1; transform: none; }
+    .svc-card-wide { grid-column: 1/-1; height: 200px; }
+
+    .svc-bg {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      transition: transform .6s ease;
+    }
+    .svc-card:hover .svc-bg { transform: scale(1.05); }
+
+    .svc-ov {
+      position: absolute; inset: 0;
+      background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.1) 100%);
+      transition: background .4s;
+    }
+    .svc-card:hover .svc-ov {
+      background: linear-gradient(0deg, rgba(0,0,0,0.94) 0%, rgba(0,0,0,0.6) 55%, rgba(226,0,20,0.12) 100%);
+    }
+
+    .svc-content {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 28px;
+    }
+    .svc-icon {
+      width: 44px; height: 44px; background: var(--red);
+      display: flex; align-items: center; justify-content: center;
+      border-radius: var(--radius); margin-bottom: 14px;
+      transition: transform .3s;
+      flex-shrink: 0;
+    }
+    .svc-card:hover .svc-icon { transform: scale(1.08); }
+    .svc-icon svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+    .svc-name {
+      font-family: var(--font); font-weight: 800; font-size: 17px;
+      color: var(--white); line-height: 1.2; margin-bottom: 8px;
+    }
+    .svc-desc {
+      font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6;
+      max-height: 0; overflow: hidden; transition: max-height .4s ease;
+    }
+    .svc-card:hover .svc-desc { max-height: 72px; }
+    .svc-arrow {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--red); margin-top: 12px;
+      transition: gap .2s;
+    }
+    .svc-card:hover .svc-arrow { gap: 10px; }
+
+    /* ── S3 MAPA ─────────────────────────────────────── */
+    .mapa { padding: 96px 48px; background: var(--dark2); }
+    .mapa-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .mapa-img {
+      opacity: 0; transform: translateX(-28px);
+      transition: opacity .6s ease, transform .6s ease;
+      position: relative;
+    }
+    .mapa-img.vis { opacity: 1; transform: none; }
+    .mapa-img img { width: 100%; border-radius: var(--radius); }
+    .mapa-content {
+      opacity: 0; transform: translateX(28px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .mapa-content.vis { opacity: 1; transform: none; }
+    .mapa-body { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.9; margin: 20px 0 28px; }
+    .states {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 32px;
+    }
+    .state-pill {
+      font-family: var(--font); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.08em;
+      background: rgba(226,0,20,0.1); border: 1px solid rgba(226,0,20,0.28);
+      color: var(--red); padding: 4px 10px; border-radius: 2px;
+    }
+
+    /* ── S4 CLIENTES — BRANCO ────────────────────────── */
+    .clients { padding: 80px 48px; background: var(--light); }
+    .clients-hd {
+      max-width: 1200px; margin: 0 auto 44px;
+      display: flex; align-items: center; gap: 24px;
+    }
+    .clients-line { flex: 1; height: 1px; background: rgba(0,0,0,0.1); }
+    .clients-lbl {
+      font-family: var(--font); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(0,0,0,0.35); white-space: nowrap;
+    }
+    .carousel-wrap { max-width: 1200px; margin: 0 auto; overflow: hidden; position: relative; }
+    .carousel-wrap::before,
+    .carousel-wrap::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2;
+    }
+    .carousel-wrap::before { left: 0; background: linear-gradient(to right, var(--light), transparent); }
+    .carousel-wrap::after { right: 0; background: linear-gradient(to left, var(--light), transparent); }
+    .carousel-track {
+      display: flex; gap: 20px;
+      animation: marquee 30s linear infinite;
+    }
+    .carousel-track:hover { animation-play-state: paused; }
+    @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+    .cl-logo {
+      flex: 0 0 140px; height: 68px;
+      background: var(--white);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      padding: 12px 18px;
+      transition: border-color .3s, transform .3s, box-shadow .3s;
+    }
+    .cl-logo:hover { border-color: var(--red); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(226,0,20,0.1); }
+    .cl-logo img { width: 100%; height: auto; object-fit: contain; }
+    .cl-logo-txt {
+      font-family: var(--font); font-size: 11px; font-weight: 800;
+      letter-spacing: 0.06em; color: var(--navy);
+    }
+
+    /* ── S5 SOBRE ─────────────────────────────────────── */
+    .about { padding: 96px 48px; background: var(--dark); }
+    .about-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .about-img-wrap {
+      position: relative;
+      opacity: 0; transform: translateX(-28px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .about-img-wrap.vis { opacity: 1; transform: none; }
+    .about-img-wrap img { width: 100%; border-radius: var(--radius); object-fit: cover; max-height: 480px; }
+    .about-badge {
+      position: absolute; bottom: -20px; right: -20px;
+      background: var(--red); padding: 18px 24px;
+      border-radius: var(--radius); text-align: center;
+      box-shadow: 0 8px 32px rgba(226,0,20,0.4);
+    }
+    .about-badge .n { font-family: var(--font); font-weight: 900; font-size: 2.2rem; color: var(--white); line-height: 1; }
+    .about-badge .l { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.8); }
+    .about-content {
+      opacity: 0; transform: translateX(28px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .about-content.vis { opacity: 1; transform: none; }
+    .about-body { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.9; margin: 20px 0 28px; }
+    .about-body strong { color: var(--white); font-weight: 600; }
+    .checks { display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px; }
+    .check {
+      display: flex; align-items: center; gap: 12px;
+      font-family: var(--font2); font-size: 14px; font-weight: 500;
+      color: rgba(255,255,255,0.7);
+    }
+    .check-icon {
+      width: 22px; height: 22px; flex-shrink: 0;
+      background: rgba(226,0,20,0.15); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .check-icon svg { width: 11px; height: 11px; stroke: var(--red); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── S6 NÚMEROS — CLARO ──────────────────────────── */
+    .numeros { padding: 80px 48px; background: var(--light); }
+    .numeros-inner {
+      max-width: 1200px; margin: 0 auto;
+    }
+    .numeros-hd { text-align: center; margin-bottom: 56px; }
+    .numeros-hd .sec-label { justify-content: center; }
+    .nums-grid {
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 0;
+    }
+    .num-item {
+      text-align: center; padding: 16px 20px;
+      border-right: 1px solid rgba(0,0,0,0.08);
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .num-item:last-child { border-right: none; }
+    .num-item.vis { opacity: 1; transform: none; }
+    .num-n {
+      font-family: var(--font); font-weight: 900;
+      font-size: clamp(2.4rem, 4vw, 3.2rem);
+      color: var(--navy); line-height: 1; margin-bottom: 8px;
+    }
+    .num-n .accent { color: var(--red); }
+    .num-l {
+      font-family: var(--font); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-txt);
+    }
+
+    /* ── S7 TRABALHE CONOSCO ─────────────────────────── */
+    .trabalhe { padding: 96px 48px; background: var(--black); }
+    .trabalhe-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+    }
+    .trabalhe-left {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .trabalhe-left.vis { opacity: 1; transform: none; }
+    .trabalhe-reviews {
+      border-radius: var(--radius); overflow: hidden; margin-bottom: 32px;
+    }
+    .trabalhe-reviews img { width: 100%; object-fit: cover; }
+    .contact-items { display: flex; flex-direction: column; gap: 16px; }
+    .contact-item { display: flex; align-items: flex-start; gap: 14px; }
+    .contact-icon {
+      width: 38px; height: 38px; flex-shrink: 0;
+      background: rgba(226,0,20,0.1); border: 1px solid rgba(226,0,20,0.25);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .contact-icon svg { width: 16px; height: 16px; stroke: var(--red); fill: none; stroke-width: 1.75; }
+    .contact-info { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.5; }
+    .contact-info strong { display: block; color: var(--white); font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+
+    .trabalhe-right {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .6s .15s ease, transform .6s .15s ease;
+    }
+    .trabalhe-right.vis { opacity: 1; transform: none; }
+    .trabalhe-title {
+      font-family: var(--font); font-weight: 900;
+      font-size: clamp(1.8rem, 2.8vw, 2.4rem);
+      color: var(--white); line-height: 1.15; letter-spacing: -0.01em;
+      margin-bottom: 12px;
+    }
+    .trabalhe-sub { font-size: 15px; color: rgba(255,255,255,0.45); line-height: 1.8; margin-bottom: 32px; }
+
+    .form { display: flex; flex-direction: column; gap: 12px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .field {
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .field label {
+      font-family: var(--font); font-size: 9px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+    .field input, .field textarea, .field select {
+      font-family: var(--font2); font-size: 14px; color: var(--white);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius); padding: 12px 16px;
+      outline: none; transition: border-color .2s, background .2s;
+      appearance: none;
+    }
+    .field input::placeholder, .field textarea::placeholder { color: rgba(255,255,255,0.2); }
+    .field input:focus, .field textarea:focus, .field select:focus {
+      border-color: var(--red); background: rgba(226,0,20,0.04);
+    }
+    .field textarea { resize: vertical; min-height: 110px; }
+    .field select { color: rgba(255,255,255,0.5); cursor: pointer; }
+    .field select option { background: #1e1e1e; color: var(--white); }
+    .btn-form {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      font-family: var(--font); font-weight: 700; font-size: 11px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 16px 32px; width: 100%;
+      background: var(--red); color: var(--white);
+      border: none; border-radius: var(--radius); cursor: pointer;
+      transition: background .2s, transform .15s;
+      box-shadow: 0 6px 24px var(--red-glow);
+    }
+    .btn-form:hover { background: var(--red-d); transform: translateY(-2px); }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    .footer { background: var(--black); border-top: 1px solid var(--border); }
+    .footer-top {
+      background: var(--red); padding: 0 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-top-items { display: flex; gap: 48px; flex-wrap: wrap; }
+    .ft-item { display: flex; align-items: center; gap: 12px; padding: 20px 0; }
+    .ft-icon { width: 18px; height: 18px; stroke: rgba(255,255,255,0.85); fill: none; stroke-width: 1.75; flex-shrink: 0; }
+    .ft-text { font-family: var(--font); }
+    .ft-label { font-size: 8px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+    .ft-value { font-size: 13px; font-weight: 700; color: var(--white); }
+
+    .footer-main {
+      max-width: 1200px; margin: 0 auto;
+      padding: 48px;
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 64px;
+    }
+    .footer-logo { font-family: var(--font); font-weight: 900; font-size: 18px; letter-spacing: 0.1em; color: var(--white); margin-bottom: 14px; }
+    .footer-about { font-size: 13px; color: rgba(255,255,255,0.35); line-height: 1.8; max-width: 300px; }
+    .footer-col-title { font-family: var(--font); font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); margin-bottom: 18px; }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 13px; color: rgba(255,255,255,0.4); transition: color .2s; }
+    .footer-links a:hover { color: var(--red); }
+
+    .footer-bottom {
+      padding: 18px 48px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 10px;
+    }
+    .footer-bottom span { font-size: 12px; color: rgba(255,255,255,0.25); }
+    .footer-bottom a { color: rgba(255,255,255,0.45); transition: color .2s; }
+    .footer-bottom a:hover { color: var(--red); }
+
+    /* ── WA FLOAT ────────────────────────────────────── */
+    .wa-float {
+      position: fixed; right: 24px; bottom: 24px; z-index: 50;
+      width: 54px; height: 54px; background: #25D366;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 24px rgba(37,211,102,0.35);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .wa-float:hover { transform: scale(1.1); box-shadow: 0 10px 32px rgba(37,211,102,0.5); }
+    .wa-float svg { width: 26px; height: 26px; fill: #fff; }
+
+    /* ── ANIM-IN GENÉRICO ────────────────────────────── */
+    .anim-in {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .anim-in.vis { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVO ──────────────────────────────────── */
+    @media (max-width: 960px) {
+      .hdr { padding: 0 24px; }
+      .hdr-nav, .hdr-cta { display: none; }
+      .hamburger { display: flex; }
+      .logo { margin-right: 0; }
+
+      .hero-text { padding: 56px 24px 48px; }
+      .trust-badges { gap: 20px; }
+
+      .services, .mapa, .about, .numeros, .trabalhe { padding: 64px 24px; }
+      .mapa-inner, .about-inner, .trabalhe-inner { grid-template-columns: 1fr; gap: 48px; }
+      .about-img-wrap { margin-bottom: 24px; }
+      .about-badge { right: 0; bottom: -14px; }
+      .svc-grid { grid-template-columns: 1fr 1fr; }
+      .nums-grid { grid-template-columns: repeat(2,1fr); }
+      .num-item:nth-child(2) { border-right: none; }
+      .num-item { border-bottom: 1px solid rgba(0,0,0,0.08); }
+      .num-item:last-child, .num-item:nth-last-child(2) { border-bottom: none; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-main { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px; }
+      .footer-top { padding: 0 24px; }
+      .footer-top-items { gap: 24px; }
+      .footer-bottom { padding: 16px 24px; }
+      .clients { padding: 64px 24px; }
+    }
+    @media (max-width: 540px) {
+      .svc-grid { grid-template-columns: 1fr; }
+      .svc-card { height: 280px; }
+      .svc-card-wide { height: 160px; }
+      .hero-h1 { font-size: 1.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="hdr" id="hdr">
+    <div class="logo">MAFFENG</div>
+    <nav class="hdr-nav">
+      <a href="#servicos">Serviços</a>
+      <a href="#atuacao">Atuação</a>
+      <a href="#clientes">Clientes</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#trabalhe">Contato</a>
+    </nav>
+    <a href="#trabalhe" class="hdr-cta">Saiba Mais</a>
+    <div class="hamburger" id="hamburger" aria-label="Menu" role="button" tabindex="0">
+      <span></span><span></span><span></span>
+    </div>
+  </header>
+
+  <nav class="mob-menu" id="mobMenu">
+    <a href="#servicos" onclick="closeMob()">Serviços</a>
+    <a href="#atuacao" onclick="closeMob()">Atuação</a>
+    <a href="#clientes" onclick="closeMob()">Clientes</a>
+    <a href="#sobre" onclick="closeMob()">Sobre</a>
+    <a href="#trabalhe" onclick="closeMob()">Contato</a>
+  </nav>
+
+  <!-- S1 HERO — DOBRA 1: IMAGEM -->
+  <section class="hero-img" style="padding-top: var(--hh);">
+    <img src="Vai entrar no projeto/banner hero.png" alt="MAFFENG Engenharia e Manutenção">
+    <div class="hero-img-overlay"></div>
+    <div class="scroll-hint">
+      <span>Role para baixo</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- S1 HERO — DOBRA 2: TEXTO -->
+  <section class="hero-text">
+    <div class="hero-text-inner">
+      <div class="hero-tag" id="heroTag">Referência Nacional</div>
+      <h1 class="hero-h1" id="heroH1" aria-label="Excelência Técnica e Compromisso que Constroem o Futuro."></h1>
+      <p class="hero-sub" id="heroSub">
+        Sua referência nacional em Engenharia e Manutenção Predial. Soluções completas e inovadoras para transformar projetos em realidade, com foco em qualidade, agilidade e cumprimento de prazos.
+      </p>
+      <div class="hero-btns" id="heroBtns">
+        <a href="#trabalhe" class="btn-primary">Saiba Mais</a>
+        <a href="#servicos" class="btn-secondary">Solicitar Orçamento</a>
+      </div>
+      <div class="trust-badges" id="trustBadges">
+        <div class="badge">
+          <div class="badge-dot"></div>
+          <div class="badge-txt"><strong>Atuação Nacional</strong>Todo o território brasileiro</div>
+        </div>
+        <div class="badge">
+          <div class="badge-dot"></div>
+          <div class="badge-txt"><strong>+87 Colaboradores</strong>Equipe altamente qualificada</div>
+        </div>
+        <div class="badge">
+          <div class="badge-dot"></div>
+          <div class="badge-txt"><strong>385 Cidades</strong>Atendidas em todo o Brasil</div>
+        </div>
+        <div class="badge">
+          <div class="badge-dot"></div>
+          <div class="badge-txt"><strong>5.0 ★ Google</strong>Avaliação máxima</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S2 SERVIÇOS -->
+  <section class="services" id="servicos">
+    <div class="sec-hd anim-in">
+      <div class="sec-label">O que fazemos</div>
+      <h2 class="sec-title">Soluções Especializadas em <span class="accent">Engenharia</span> e Manutenção</h2>
+    </div>
+    <div class="svc-grid">
+
+      <article class="svc-card">
+        <div class="svc-bg" style="background-image: url('Vai entrar no projeto/banner_maffeng_institucional_v5.png')"></div>
+        <div class="svc-ov"></div>
+        <div class="svc-content">
+          <div class="svc-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <h3 class="svc-name">Manutenção Predial e Civil</h3>
+          <p class="svc-desc">Gestão integrada de sistemas elétricos, hidráulicos, refrigeração, pintura, marcenaria, serralheria e alvenaria.</p>
+          <span class="svc-arrow">Saiba mais <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </article>
+
+      <article class="svc-card">
+        <div class="svc-bg" style="background-image: url('Vai entrar no projeto/banner_maffeng_bancario_v5.png')"></div>
+        <div class="svc-ov"></div>
+        <div class="svc-content">
+          <div class="svc-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="10" width="18" height="11" rx="1"/><path d="M3 10l9-7 9 7"/><line x1="12" y1="10" x2="12" y2="21"/></svg>
+          </div>
+          <h3 class="svc-name">Manutenção Corporativa e Bancária</h3>
+          <p class="svc-desc">Expertise no setor público e financeiro, oferecendo soluções integradas para evitar riscos e interrupções imprevistas.</p>
+          <span class="svc-arrow">Saiba mais <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </article>
+
+      <article class="svc-card">
+        <div class="svc-bg" style="background-image: url('Vai entrar no projeto/banner_maffeng_construcao_v3.png')"></div>
+        <div class="svc-ov"></div>
+        <div class="svc-content">
+          <div class="svc-icon">
+            <svg viewBox="0 0 24 24"><path d="M2 20h20M4 20V10l8-7 8 7v10"/><path d="M9 20v-5h6v5"/></svg>
+          </div>
+          <h3 class="svc-name">Obras e Reformas</h3>
+          <p class="svc-desc">Instalações elétricas, hidráulicas, refrigeração e obras civis com rigor técnico e cumprimento de prazos.</p>
+          <span class="svc-arrow">Saiba mais <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      </article>
+
+      <article class="svc-card svc-card-wide">
+        <div class="svc-bg" style="background-image: url('Vai entrar no projeto/faixa_diferenciais_maffeng_v12.png')"></div>
+        <div class="svc-ov"></div>
+        <div class="svc-content" style="flex-direction: row; align-items: flex-end; gap: 24px;">
+          <div>
+            <div class="svc-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+            </div>
+          </div>
+          <div>
+            <h3 class="svc-name">Serviços Técnicos Especializados</h3>
+            <p class="svc-desc" style="max-height:none">Termografia · SPDA · Manutenção de Subestações — segurança e eficiência em infraestruturas críticas.</p>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- S3 MAPA / ATUAÇÃO -->
+  <section class="mapa" id="atuacao">
+    <div class="mapa-inner">
+      <div class="mapa-img">
+        <img src="Vai entrar no projeto/maffeng_mapa_nacional_v8.png" alt="Mapa de atuação nacional da MAFFENG">
+      </div>
+      <div class="mapa-content">
+        <div class="sec-label">Cobertura Nacional</div>
+        <h2 class="sec-title">Atendemos todo o <span class="accent">território nacional</span></h2>
+        <p class="mapa-body">Presente em 385 cidades, a MAFFENG leva soluções de engenharia e manutenção a empresas, órgãos públicos e instituições financeiras em todo o Brasil, com equipe local e gestão centralizada.</p>
+        <div class="states">
+          <span class="state-pill">GO</span><span class="state-pill">SP</span><span class="state-pill">RJ</span>
+          <span class="state-pill">MG</span><span class="state-pill">BA</span><span class="state-pill">DF</span>
+          <span class="state-pill">RS</span><span class="state-pill">PR</span><span class="state-pill">SC</span>
+          <span class="state-pill">PE</span><span class="state-pill">CE</span><span class="state-pill">MT</span>
+          <span class="state-pill">MS</span><span class="state-pill">PA</span><span class="state-pill">+ 13</span>
+        </div>
+        <a href="#trabalhe" class="btn-primary">Solicitar Orçamento</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- S4 CLIENTES — FUNDO BRANCO -->
+  <section class="clients" id="clientes">
+    <div class="clients-hd anim-in">
+      <div class="clients-line"></div>
+      <span class="clients-lbl">Empresas que confiam na MAFFENG</span>
+      <div class="clients-line"></div>
+    </div>
+    <div class="carousel-wrap">
+      <div class="carousel-track">
+        <div class="cl-logo"><span class="cl-logo-txt">SENAC</span></div>
+        <div class="cl-logo"><span class="cl-logo-txt">VAPT VUPT</span></div>
+        <div class="cl-logo"><span class="cl-logo-txt">SICOOB</span></div>
+        <div class="cl-logo"><span class="cl-logo-txt">BANCO DO BRASIL</span></div>
+        <div class="cl-logo"><span class="cl-logo-txt">CAIXA</span></div>
+        <div class="cl-logo"><span class="cl-logo-txt">SEBRAE</span></div>
+        <div class="cl-logo"><span class="cl-logo-txt">SESC</span></div>
+        <!-- duplicar para carrossel infinito -->
+        <div class="cl-logo"><span class="cl-logo-txt">SENAC</span></div>
+        <div class="cl-logo"><span class="cl-logo-txt">VAPT VUPT</span></div>
+        <div class="cl-logo"><span class="cl-logo-txt">SICOOB</span></div>
+        <div class="cl-logo"><span class="cl-logo-txt">BANCO DO BRASIL</span></div>
+        <div class="cl-logo"><span class="cl-logo-txt">CAIXA</span></div>
+        <div class="cl-logo"><span class="cl-logo-txt">SEBRAE</span></div>
+        <div class="cl-logo"><span class="cl-logo-txt">SESC</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S5 SOBRE -->
+  <section class="about" id="sobre">
+    <div class="about-inner">
+      <div class="about-img-wrap">
+        <img src="Vai entrar no projeto/fachada_maffeng_final_no_plates.png" alt="Fachada MAFFENG — Engenharia e Manutenção">
+        <div class="about-badge"><span class="n">5+</span><span class="l">Anos</span></div>
+      </div>
+      <div class="about-content">
+        <div class="sec-label">Quem Somos</div>
+        <h2 class="sec-title">Referência Nacional em <span class="accent">Engenharia</span></h2>
+        <p class="about-body">Fundada em 2019, a <strong>MAFFENG Engenharia e Manutenção</strong> é líder nacional em serviços de engenharia, atendendo todo o território nacional com profissionais altamente capacitados. Nosso compromisso com a excelência e a inovação nos torna referência confiável no setor.</p>
+        <div class="checks">
+          <div class="check">
+            <div class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Segurança em primeiro lugar — protocolos NRs rigorosos
+          </div>
+          <div class="check">
+            <div class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Equipe especializada e certificada em todas as áreas
+          </div>
+          <div class="check">
+            <div class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Entregas no prazo com qualidade atestada
+          </div>
+          <div class="check">
+            <div class="check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            Acessibilidade e conformidade com normas técnicas vigentes
+          </div>
+        </div>
+        <a href="#trabalhe" class="btn-primary">Saiba Mais</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- S6 NÚMEROS — FUNDO CLARO -->
+  <section class="numeros">
+    <div class="numeros-inner">
+      <div class="numeros-hd anim-in">
+        <div class="sec-label" style="color: var(--red);">Nossos números</div>
+        <h2 class="sec-title sec-title-dark">A MAFFENG em <span class="accent">dados</span></h2>
+      </div>
+      <div class="nums-grid">
+        <div class="num-item">
+          <div class="num-n"><span class="accent" data-target="5">0</span>+</div>
+          <div class="num-l">Anos de Experiência</div>
+        </div>
+        <div class="num-item">
+          <div class="num-n" data-target="87">0</div>
+          <div class="num-l">Colaboradores</div>
+        </div>
+        <div class="num-item">
+          <div class="num-n"><span class="accent" data-target="385">0</span></div>
+          <div class="num-l">Cidades Atendidas</div>
+        </div>
+        <div class="num-item">
+          <div class="num-n"><span class="accent">5.0</span> <span style="color: var(--red)">★</span></div>
+          <div class="num-l">Google Reviews</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S7 TRABALHE CONOSCO -->
+  <section class="trabalhe" id="trabalhe">
+    <div class="trabalhe-inner">
+      <div class="trabalhe-left">
+        <div class="sec-label" style="margin-bottom: 24px;">Trabalhe Conosco</div>
+        <div class="trabalhe-reviews">
+          <img src="Vai entrar no projeto/maffeng_google_reviews_v9.png" alt="MAFFENG — Avaliação 5 estrelas no Google">
+        </div>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.01 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <div class="contact-info">
+              <strong>(62) 2220-0664</strong>WhatsApp disponível
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="contact-info">
+              <strong>administrativo@maffengengenharia.com</strong>Resposta em até 24h
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="contact-info">
+              <strong>Goiânia — GO</strong>Rua Via das Chácaras, Qd 01, Lt 10
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="trabalhe-right">
+        <h2 class="trabalhe-title">Faça parte do<br><span style="color: var(--red)">nosso time</span></h2>
+        <p class="trabalhe-sub">Quer crescer com a MAFFENG? Envie seus dados e um de nossos recrutadores entrará em contato.</p>
+        <form class="form" onsubmit="return false;">
+          <div class="form-row">
+            <div class="field">
+              <label for="nome">Nome completo</label>
+              <input type="text" id="nome" placeholder="Seu nome">
+            </div>
+            <div class="field">
+              <label for="tel">Telefone / WhatsApp</label>
+              <input type="tel" id="tel" placeholder="(62) 99999-9999">
+            </div>
+          </div>
+          <div class="field">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" placeholder="seu@email.com">
+          </div>
+          <div class="field">
+            <label for="area">Área de interesse</label>
+            <select id="area">
+              <option value="" disabled selected>Selecione uma área</option>
+              <option>Manutenção Elétrica</option>
+              <option>Manutenção Civil</option>
+              <option>Refrigeração</option>
+              <option>Obras e Reformas</option>
+              <option>Serviços Técnicos (Termografia / SPDA)</option>
+              <option>Administrativo</option>
+              <option>Outro</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="msg">Conte um pouco sobre você</label>
+            <textarea id="msg" placeholder="Experiência, certificações, disponibilidade..."></textarea>
+          </div>
+          <button type="submit" class="btn-form">
+            Faça Parte do Nosso Time
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-top-items">
+        <div class="ft-item">
+          <svg class="ft-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.01 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <div class="ft-text"><div class="ft-label">Telefone</div><div class="ft-value">(62) 2220-0664</div></div>
+        </div>
+        <div class="ft-item">
+          <svg class="ft-icon" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <div class="ft-text"><div class="ft-label">E-mail</div><div class="ft-value">administrativo@maffengengenharia.com</div></div>
+        </div>
+        <div class="ft-item">
+          <svg class="ft-icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div class="ft-text"><div class="ft-label">Endereço</div><div class="ft-value">Goiânia — GO</div></div>
+        </div>
+      </div>
+      <a href="#trabalhe" style="font-family: var(--font); font-weight: 700; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; background: rgba(0,0,0,0.25); color: #fff; padding: 12px 24px; border-radius: var(--radius); white-space: nowrap; transition: background .2s;" onmouseover="this.style.background='rgba(0,0,0,0.4)'" onmouseout="this.style.background='rgba(0,0,0,0.25)'">Solicitar Orçamento</a>
+    </div>
+
+    <div class="footer-main">
+      <div>
+        <div class="footer-logo">MAFFENG</div>
+        <p class="footer-about">Referência nacional em serviços de engenharia e manutenção predial, civil e técnica. Fundada em 2019, atendemos todo o território brasileiro com excelência e comprometimento.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Serviços</div>
+        <nav class="footer-links">
+          <a href="#servicos">Manutenção Predial e Civil</a>
+          <a href="#servicos">Manutenção Corporativa e Bancária</a>
+          <a href="#servicos">Obras e Reformas</a>
+          <a href="#servicos">Serviços Técnicos</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Empresa</div>
+        <nav class="footer-links">
+          <a href="#sobre">Sobre a MAFFENG</a>
+          <a href="#atuacao">Nossa Atuação</a>
+          <a href="#clientes">Nossos Clientes</a>
+          <a href="#trabalhe">Trabalhe Conosco</a>
+        </nav>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025 MAFFENG Engenharia e Manutenção · CNPJ 33.624.704/0001-94</span>
+      <span>Desenvolvido por <a href="https://thiagonascimentobarbosapro.com" target="_blank" rel="noopener">TM — Sempre Tecnologia</a></span>
+    </div>
+  </footer>
+
+  <!-- WA FLUTUANTE -->
+  <a href="http://wa.me/5562996546785" class="wa-float" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script>
+    /* ── HEADER scroll ── */
+    const hdr = document.getElementById('hdr');
+    window.addEventListener('scroll', () => {
+      hdr.classList.toggle('scrolled', window.scrollY > 40);
+      updateActiveNav();
+    }, { passive: true });
+
+    /* ── MENU MOBILE ── */
+    const ham = document.getElementById('hamburger');
+    const mob = document.getElementById('mobMenu');
+    ham.addEventListener('click', () => mob.classList.toggle('open'));
+    function closeMob() { mob.classList.remove('open'); }
+
+    /* ── NAV ATIVA ── */
+    function updateActiveNav() {
+      const secs = ['servicos','atuacao','clientes','sobre','trabalhe'];
+      const links = document.querySelectorAll('.hdr-nav a');
+      let cur = '';
+      secs.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && window.scrollY >= el.offsetTop - 120) cur = id;
+      });
+      links.forEach(a => a.classList.toggle('act', a.getAttribute('href') === '#' + cur));
+    }
+
+    /* ── TYPEWRITER HERO ── */
+    const fullText = 'Excelência Técnica e Compromisso que Constroem o Futuro.';
+    const accentWord = 'Compromisso';
+    const h1 = document.getElementById('heroH1');
+    let twDone = false;
+
+    function typewrite() {
+      if (twDone) return;
+      twDone = true;
+      let i = 0;
+      const interval = setInterval(() => {
+        const current = fullText.slice(0, i);
+        const before = current.split(accentWord)[0];
+        const hasAccent = current.includes(accentWord);
+        const after = hasAccent ? current.split(accentWord)[1] : '';
+        h1.innerHTML = hasAccent
+          ? before + '<span class="accent">' + accentWord + '</span>' + after + '<span class="cursor"></span>'
+          : current + '<span class="cursor"></span>';
+        i++;
+        if (i > fullText.length) {
+          clearInterval(interval);
+          setTimeout(() => {
+            document.getElementById('heroSub').classList.add('vis');
+            setTimeout(() => document.getElementById('heroBtns').classList.add('vis'), 300);
+            setTimeout(() => document.getElementById('trustBadges').classList.add('vis'), 550);
+            const cur = h1.querySelector('.cursor');
+            if (cur) setTimeout(() => cur.remove(), 2000);
+          }, 200);
+        }
+      }, 38);
+    }
+
+    /* ── INTERSECTION OBSERVER ── */
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+
+        if (el.id === 'heroTag') {
+          el.classList.add('vis');
+          setTimeout(typewrite, 400);
+          io.unobserve(el);
+          return;
+        }
+
+        if (el.classList.contains('num-item')) {
+          el.classList.add('vis');
+          const numEl = el.querySelector('[data-target]');
+          if (numEl) {
+            const target = +numEl.dataset.target;
+            let start = 0;
+            const dur = 1400;
+            const step = Math.ceil(target / (dur / 16));
+            const t = setInterval(() => {
+              start = Math.min(start + step, target);
+              numEl.textContent = start;
+              if (start >= target) clearInterval(t);
+            }, 16);
+          }
+          io.unobserve(el);
+          return;
+        }
+
+        el.classList.add('vis');
+
+        if (el.classList.contains('svc-grid') || el.parentElement?.classList.contains('svc-grid')) {
+          const cards = el.querySelectorAll ? el.querySelectorAll('.svc-card') : [];
+          cards.forEach((c, i) => setTimeout(() => c.classList.add('vis'), i * 120));
+        }
+
+        io.unobserve(el);
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.anim-in, .hero-tag, .mapa-img, .mapa-content, .about-img-wrap, .about-content, .trabalhe-left, .trabalhe-right, .num-item, .svc-card').forEach(el => io.observe(el));
+    document.getElementById('heroTag') && io.observe(document.getElementById('heroTag'));
+  </script>
+</body>
+</html>

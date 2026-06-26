@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thiago Nascimento Barbosa — Apresentação Profissional</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration:.01ms!important; transition-duration:.01ms!important; } }
+
+    :root {
+      --primary:       #C8541C;
+      --primary-hover: #A6451A;
+      --primary-light: #FBEDE3;
+      --bg:            #F5F4F1;
+      --bg-card:       #FFFFFF;
+      --bg-hover:      #ECEAE5;
+      --bg-secondary:  #E8E5DE;
+      --text:          #1A1A1A;
+      --muted:         #5C5A55;
+      --subtle:        #8C8A85;
+      --border:        #DAD7D0;
+      --border-strong: #1A1A1A;
+      --success:       #4F7A3A;
+      --info:          #345878;
+      --font-h:        'Roboto Slab', serif;
+      --font-b:        'Inter', sans-serif;
+      --font-m:        'JetBrains Mono', monospace;
+      --radius-sm:     4px;
+      --radius:        8px;
+      --radius-lg:     12px;
+      --shadow-sm:     0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md:     0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.05);
+      --shadow-lg:     0 8px 28px rgba(0,0,0,0.1),  0 4px 8px rgba(0,0,0,0.06);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-b); background: var(--bg); color: var(--text); line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── GRAIN TEXTURE ── */
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .018;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .page { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 64px 40px 96px; }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 2px; border: none; margin: 56px 0;
+      background: linear-gradient(90deg, var(--primary) 0%, rgba(200,84,28,0.2) 40%, transparent 100%);
+    }
+
+    /* ── HEADER ── */
+    .header {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 40px; align-items: start;
+      margin-bottom: 64px;
+      opacity: 0; transform: translateY(16px);
+      animation: fadeUp .5s .1s ease forwards;
+    }
+    .header-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-m); font-size: 10px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--primary);
+      margin-bottom: 16px;
+    }
+    .header-eyebrow::before { content: ''; width: 20px; height: 2px; background: var(--primary); }
+
+    .header-name {
+      font-family: var(--font-h); font-weight: 800;
+      font-size: clamp(2.6rem, 5vw, 4rem);
+      line-height: 1.05; letter-spacing: -0.02em;
+      color: var(--text); margin-bottom: 6px;
+    }
+    .header-role {
+      font-family: var(--font-b); font-size: 15px; font-weight: 500;
+      color: var(--muted); margin-bottom: 20px;
+    }
+    .header-phrase {
+      font-family: var(--font-h); font-weight: 300; font-size: 1.15rem;
+      color: var(--muted); line-height: 1.65; max-width: 560px;
+      border-left: 3px solid var(--primary); padding-left: 16px;
+    }
+    .header-phrase strong { color: var(--text); font-weight: 600; }
+
+    .header-meta {
+      text-align: right; flex-shrink: 0;
+      font-family: var(--font-m); font-size: 10px;
+      color: var(--subtle); line-height: 2;
+    }
+    .header-meta strong { color: var(--text); font-size: 12px; display: block; margin-bottom: 4px; }
+    .doc-badge {
+      display: inline-block; margin-top: 12px;
+      background: var(--primary-light); border: 1px solid rgba(200,84,28,0.25);
+      color: var(--primary); border-radius: var(--radius-sm);
+      padding: 5px 14px; font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    }
+
+    /* ── NÚMEROS ── */
+    .numbers-section {
+      opacity: 0; transform: translateY(16px);
+      animation: fadeUp .5s .25s ease forwards;
+      margin-bottom: 0;
+    }
+    .numbers-label {
+      font-family: var(--font-m); font-size: 10px; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--subtle); margin-bottom: 24px;
+    }
+    .numbers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .num-item {
+      background: var(--bg-card); padding: 32px 24px;
+      opacity: 0; transform: translateY(12px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+    .num-item.vis { opacity: 1; transform: none; }
+    .num-item:hover { background: var(--bg-hover); }
+    .num-val {
+      font-family: var(--font-h); font-weight: 800;
+      font-size: clamp(2.8rem, 4vw, 3.6rem);
+      line-height: 1; color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .num-suffix { font-size: 1.4rem; font-weight: 400; }
+    .num-label { font-size: 12px; color: var(--muted); font-weight: 500; line-height: 1.4; }
+
+    /* ── PROJETOS ── */
+    .projects-section {
+      opacity: 0; transform: translateY(16px);
+      animation: fadeUp .5s .4s ease forwards;
+    }
+    .section-title {
+      font-family: var(--font-h); font-weight: 700;
+      font-size: 1.5rem; letter-spacing: -0.01em;
+      margin-bottom: 24px; color: var(--text);
+      display: flex; align-items: center; gap: 14px;
+    }
+    .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow .2s, transform .2s;
+      cursor: default;
+    }
+    .project-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .project-card.featured {
+      grid-column: 1 / -1;
+      border-top-color: var(--text);
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 32px; align-items: start;
+    }
+
+    .project-tag {
+      font-family: var(--font-m); font-size: 9px; letter-spacing: 0.14em;
+      text-transform: uppercase; padding: 3px 10px;
+      border-radius: var(--radius-sm); margin-bottom: 14px;
+      display: inline-block; font-weight: 500;
+    }
+    .tag-orange { background: var(--primary-light); color: var(--primary); border: 1px solid rgba(200,84,28,0.2); }
+    .tag-dark   { background: #E8E5DE; color: var(--muted); border: 1px solid var(--border); }
+    .tag-blue   { background: rgba(52,88,120,0.08); color: var(--info); border: 1px solid rgba(52,88,120,0.2); }
+    .tag-green  { background: rgba(79,122,58,0.08); color: var(--success); border: 1px solid rgba(79,122,58,0.2); }
+
+    .project-title {
+      font-family: var(--font-h); font-weight: 700; font-size: 1.15rem;
+      color: var(--text); margin-bottom: 10px; letter-spacing: -0.01em;
+    }
+    .project-desc {
+      font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 20px;
+    }
+    .project-metrics { display: flex; gap: 20px; flex-wrap: wrap; }
+    .metric {
+      display: flex; align-items: center; gap: 6px;
+      font-family: var(--font-m); font-size: 10px; color: var(--subtle);
+    }
+    .metric-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--primary); }
+
+    .project-aside {
+      flex-shrink: 0; padding: 20px 24px;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius); min-width: 200px;
+    }
+    .aside-label { font-family: var(--font-m); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--subtle); margin-bottom: 12px; }
+    .aside-stat { font-family: var(--font-h); font-weight: 700; font-size: 2rem; color: var(--text); line-height: 1; }
+    .aside-sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+    /* ── PILARES ── */
+    .pilares-section {
+      opacity: 0; transform: translateY(16px);
+      animation: fadeUp .5s .55s ease forwards;
+    }
+    .pilares-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .pilar-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow .2s;
+    }
+    .pilar-card:hover { box-shadow: var(--shadow-md); }
+    .pilar-num {
+      font-family: var(--font-h); font-weight: 800; font-size: 3rem;
+      color: var(--border); line-height: 1; margin-bottom: 16px;
+      transition: color .2s;
+    }
+    .pilar-card:hover .pilar-num { color: var(--primary-light); }
+    .pilar-title {
+      font-family: var(--font-h); font-weight: 700; font-size: 1rem;
+      color: var(--text); margin-bottom: 10px;
+    }
+    .pilar-title .accent { color: var(--primary); }
+    .pilar-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+    /* ── STACK ── */
+    .stack-section {
+      opacity: 0; transform: translateY(16px);
+      animation: fadeUp .5s .65s ease forwards;
+    }
+    .stack-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .stack-badge {
+      font-family: var(--font-m); font-size: 11px; font-weight: 500;
+      padding: 7px 16px; border-radius: var(--radius-sm);
+      background: var(--bg-card); border: 1px solid var(--border);
+      color: var(--muted); transition: all .2s; cursor: default;
+    }
+    .stack-badge:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+    .stack-badge.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .stack-badge.primary:hover { background: var(--primary-hover); }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: var(--text); border-radius: var(--radius-lg);
+      padding: 52px 56px;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 40px; align-items: center;
+      box-shadow: var(--shadow-lg);
+      opacity: 0; transform: translateY(16px);
+      animation: fadeUp .5s .75s ease forwards;
+    }
+    .cta-title {
+      font-family: var(--font-h); font-weight: 800;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: #fff; line-height: 1.2; margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+    .cta-title .orange { color: var(--primary); }
+    .cta-sub { font-size: 14px; color: rgba(255,255,255,0.55); max-width: 420px; }
+    .cta-btns { display: flex; flex-direction: column; gap: 10px; flex-shrink: 0; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-family: var(--font-b); font-weight: 600; font-size: 13px;
+      padding: 13px 28px; border-radius: var(--radius);
+      transition: all .2s; cursor: pointer; white-space: nowrap;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-ghost { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.12); }
+    .btn-ghost:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    .btn svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 40px; padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+      opacity: 0; animation: fadeUp .5s .85s ease forwards;
+    }
+    .footer span { font-family: var(--font-m); font-size: 10px; color: var(--subtle); letter-spacing: 0.08em; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .numbers-grid { grid-template-columns: repeat(2,1fr); }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card.featured { grid-template-columns: 1fr; }
+      .pilares-grid { grid-template-columns: 1fr; }
+      .cta-section { grid-template-columns: 1fr; }
+      .cta-btns { flex-direction: row; flex-wrap: wrap; }
+    }
+    @media (max-width: 540px) {
+      .page { padding: 40px 24px 64px; }
+      .header { grid-template-columns: 1fr; }
+      .header-meta { text-align: left; }
+      .numbers-grid { grid-template-columns: 1fr 1fr; }
+      .cta-section { padding: 36px 28px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div>
+      <div class="header-eyebrow">Apresentação Profissional</div>
+      <h1 class="header-name">Thiago Nascimento Barbosa</h1>
+      <div class="header-role">Fundador &amp; Arquiteto de Soluções — TM Sempre Tecnologia</div>
+      <p class="header-phrase">
+        Da engenharia ao código — <strong>construo sistemas que sustentam operações reais.</strong>
+        Não desenvolvo por hobby: cada linha existe porque há um contrato, um prazo e um cliente institucional dependendo do resultado.
+      </p>
+    </div>
+    <div class="header-meta">
+      <strong>Junho / 2026</strong>
+      <div>TM Sempre Tecnologia</div>
+      <div>Goiânia — GO</div>
+      <div>thiagonascimento.barbosapro@gmail.com</div>
+      <span class="doc-badge">Documento Estratégico</span>
+    </div>
+  </header>
+
+  <hr class="divider">
+
+  <!-- NÚMEROS -->
+  <div class="numbers-section">
+    <div class="numbers-label">Impacto em números</div>
+    <div class="numbers-grid">
+      <div class="num-item">
+        <div class="num-val"><span class="num-count" data-target="9">0</span></div>
+        <div class="num-label">Contratos bancários ativos gerenciados pelo sistema</div>
+      </div>
+      <div class="num-item">
+        <div class="num-val"><span class="num-count" data-target="385">0</span></div>
+        <div class="num-label">Cidades cobertas pela operação nacional</div>
+      </div>
+      <div class="num-item">
+        <div class="num-val"><span class="num-count" data-target="15">0</span><span class="num-suffix">/15</span></div>
+        <div class="num-label">Testes E2E automatizados passando em produção</div>
+      </div>
+      <div class="num-item">
+        <div class="num-val"><span class="num-count" data-target="9">0</span></div>
+        <div class="num-label">Versões entregues em uma única sessão de trabalho</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PROJETOS -->
+  <div class="projects-section">
+    <h2 class="section-title">O que construí</h2>
+    <div class="projects-grid">
+
+      <div class="project-card featured">
+        <div>
+          <span class="project-tag tag-orange">Projeto Principal · Ativo</span>
+          <h3 class="project-title">AutoRelatório V5 — Sistema Operacional da TM</h3>
+          <p class="project-desc">
+            Eliminei horas de trabalho manual na geração de relatórios fotográficos de vistoria preventiva. Um sistema FastAPI + Next.js rodando hoje em 9 contratos bancários reais — Banco do Brasil, Correios, SEAD — com 3 modos de operação, arquitetura modular por contrato e zero dependência de terceiros para execução.
+          </p>
+          <div class="project-metrics">
+            <span class="metric"><span class="metric-dot"></span>FastAPI · Next.js · Python 3.11</span>
+            <span class="metric"><span class="metric-dot"></span>9 contratos · 3 modos</span>
+            <span class="metric"><span class="metric-dot"></span>Rodando em produção</span>
+          </div>
+        </div>
+        <div class="project-aside">
+          <div class="aside-label">Status</div>
+          <div class="aside-stat">V5</div>
+          <div class="aside-sub">Versão ativa em campo</div>
+          <hr style="border:none;border-top:1px solid var(--border);margin:16px 0">
+          <div class="aside-label">Contratos</div>
+          <div class="aside-stat">9</div>
+          <div class="aside-sub">Instituições ativas</div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-tag tag-dark">Esta Sessão · Jun 2026</span>
+        <h3 class="project-title">Redesign Site MAFFENG (V15 → V23)</h3>
+        <p class="project-desc">
+          Planejamento, execução e testes em uma sessão contínua. Seção de serviços redesenhada, trust badges transformados em ticker marquee, carrossel de clientes calibrado, 15 testes Playwright criados e aprovados. Nenhum arquivo sobreposto — 9 versões versionadas.
+        </p>
+        <div class="project-metrics">
+          <span class="metric"><span class="metric-dot"></span>9 versões · zero overwrite</span>
+          <span class="metric"><span class="metric-dot"></span>15/15 testes aprovados</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <span class="project-tag tag-blue">Ecossistema · Contínuo</span>
+        <h3 class="project-title">Infraestrutura TM — Apps, Skills e Automações</h3>
+        <p class="project-desc">
+          Design system próprio, biblioteca de skills de IA, workflows documentados, pipelines de automação. Tudo conectado em três pastas que formam o sistema operacional da empresa — sem terceirização de execução.
+        </p>
+        <div class="project-metrics">
+          <span class="metric"><span class="metric-dot"></span>TM Design System</span>
+          <span class="metric"><span class="metric-dot"></span>32+ skills ativas</span>
+          <span class="metric"><span class="metric-dot"></span>Playwright · Supabase · Claude AI</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PILARES -->
+  <div class="pilares-section">
+    <h2 class="section-title">Como trabalho</h2>
+    <div class="pilares-grid">
+      <div class="pilar-card">
+        <div class="pilar-num">01</div>
+        <div class="pilar-title"><span class="accent">Planejar</span> antes de executar</div>
+        <p class="pilar-desc">Nenhuma linha de código é escrita sem alinhamento. Cada mudança passa por análise, proposta de abordagem e aprovação — depois a execução é cirúrgica e sem surpresas.</p>
+      </div>
+      <div class="pilar-card">
+        <div class="pilar-num">02</div>
+        <div class="pilar-title"><span class="accent">Testar</span> antes de entregar</div>
+        <p class="pilar-desc">Playwright, E2E, screenshots por viewport. O que vai para produção foi validado — não "deve funcionar". Essa é a diferença entre quem entrega e quem só escreve código.</p>
+      </div>
+      <div class="pilar-card">
+        <div class="pilar-num">03</div>
+        <div class="pilar-title">Código a serviço do <span class="accent">negócio</span></div>
+        <p class="pilar-desc">Cada feature existe porque há uma operação dependendo dela. Banco do Brasil, Correios, SEAD não aceitam "está em desenvolvimento". Prazo e resultado são inegociáveis.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- STACK -->
+  <div class="stack-section">
+    <h2 class="section-title">Stack técnico</h2>
+    <div class="stack-grid">
+      <span class="stack-badge primary">Next.js</span>
+      <span class="stack-badge primary">FastAPI · Python</span>
+      <span class="stack-badge primary">Claude AI</span>
+      <span class="stack-badge">TypeScript</span>
+      <span class="stack-badge">Tailwind CSS</span>
+      <span class="stack-badge">Supabase</span>
+      <span class="stack-badge">Playwright</span>
+      <span class="stack-badge">Zustand</span>
+      <span class="stack-badge">Pydantic</span>
+      <span class="stack-badge">python-docx · openpyxl</span>
+      <span class="stack-badge">Docker</span>
+      <span class="stack-badge">Vercel · Railway</span>
+      <span class="stack-badge">Git · GitHub</span>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <div>
+      <h2 class="cta-title">Se você está lendo isso,<br>já viu o resultado do meu <span class="orange">trabalho.</span></h2>
+      <p class="cta-sub">Não preciso convencer com palavras o que os sistemas em produção já demonstram. Vamos conversar sobre o próximo nível.</p>
+    </div>
+    <div class="cta-btns">
+      <a href="https://wa.me/5562996546785" class="btn btn-primary">
+        <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+        WhatsApp
+      </a>
+      <a href="mailto:thiagonascimento.barbosapro@gmail.com" class="btn btn-ghost">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        E-mail
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <span>TM SEMPRE TECNOLOGIA · THIAGO NASCIMENTO BARBOSA · JUNHO 2026</span>
+    <span>GOIÂNIA — GO · CNPJ EM PROCESSO</span>
+    <span>DOCUMENTO CONFIDENCIAL</span>
+  </footer>
+
+</div>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+
+      if (el.classList.contains('num-item')) {
+        el.classList.add('vis');
+        const span = el.querySelector('.num-count');
+        if (span) {
+          const target = +span.dataset.target;
+          let current = 0;
+          const step = Math.ceil(target / 40);
+          const t = setInterval(() => {
+            current = Math.min(current + step, target);
+            span.textContent = current;
+            if (current >= target) clearInterval(t);
+          }, 30);
+        }
+        io.unobserve(el);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.num-item').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

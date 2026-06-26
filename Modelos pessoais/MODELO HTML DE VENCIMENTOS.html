@@ -1,0 +1,1280 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vencimentos • Fevereiro 2026</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    
+    :root{
+      /* Dark theme palette */
+      --bg-primary:#0d1117;
+      --bg-secondary:#161b22;
+      --bg-tertiary:#21262d;
+      --bg-elevated:#2d333b;
+      
+      /* Borders */
+      --border-default:#30363d;
+      --border-muted:#21262d;
+      --border-accent:#58a6ff;
+      
+      /* Text */
+      --text-primary:#e6edf3;
+      --text-secondary:#8d96a0;
+      --text-muted:#6e7681;
+      
+      /* Status colors */
+      --status-success:#3fb950;
+      --status-success-bg:rgba(63,185,80,0.1);
+      --status-warning:#d29922;
+      --status-warning-bg:rgba(210,153,34,0.1);
+      --status-danger:#f85149;
+      --status-danger-bg:rgba(248,81,73,0.1);
+      --status-info:#58a6ff;
+      --status-info-bg:rgba(88,166,255,0.1);
+      
+      /* Accent */
+      --accent:#58a6ff;
+      --accent-hover:#79c0ff;
+      
+      /* Fonts */
+      --font-mono:'JetBrains Mono', monospace;
+      --font-sans:'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{height:100%;overflow-x:hidden;}
+    body{
+      font-family:var(--font-sans);
+      background:var(--bg-primary);
+      color:var(--text-primary);
+      line-height:1.6;
+    }
+
+    /* Layout */
+    .app{
+      display:flex;
+      flex-direction:column;
+      min-height:100vh;
+    }
+
+    /* Header */
+    .header{
+      position:sticky;
+      top:0;
+      z-index:100;
+      background:rgba(13,17,23,0.95);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border-default);
+    }
+    .header-content{
+      max-width:1400px;
+      margin:0 auto;
+      padding:20px 24px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .brand-icon{
+      width:40px;
+      height:40px;
+      background:linear-gradient(135deg, var(--accent), var(--status-info));
+      border-radius:10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:20px;
+    }
+    .brand-text h1{
+      font-size:20px;
+      font-weight:800;
+      color:var(--text-primary);
+      line-height:1.2;
+    }
+    .brand-text p{
+      font-size:12px;
+      color:var(--text-secondary);
+      margin-top:2px;
+    }
+    .header-stats{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .stat-badge{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      background:var(--bg-tertiary);
+      border:1px solid var(--border-default);
+      border-radius:8px;
+      font-size:13px;
+      font-weight:600;
+    }
+    .stat-badge .value{
+      color:var(--accent);
+      font-family:var(--font-mono);
+    }
+
+    /* Main Content */
+    .main{
+      flex:1;
+      max-width:1400px;
+      width:100%;
+      margin:0 auto;
+      padding:24px;
+      display:grid;
+      grid-template-columns:1fr 340px;
+      gap:24px;
+      align-items:start;
+    }
+
+    /* Toolbar */
+    .toolbar{
+      display:flex;
+      gap:12px;
+      margin-bottom:20px;
+      flex-wrap:wrap;
+    }
+    .search-box{
+      flex:1;
+      min-width:280px;
+      position:relative;
+    }
+    .search-box input{
+      width:100%;
+      padding:10px 12px 10px 40px;
+      background:var(--bg-secondary);
+      border:1px solid var(--border-default);
+      border-radius:8px;
+      color:var(--text-primary);
+      font-size:14px;
+      font-family:var(--font-sans);
+      transition:all 0.2s;
+    }
+    .search-box input:focus{
+      outline:none;
+      border-color:var(--accent);
+      background:var(--bg-tertiary);
+    }
+    .search-box:before{
+      content:'🔍';
+      position:absolute;
+      left:14px;
+      top:50%;
+      transform:translateY(-50%);
+      font-size:14px;
+      opacity:0.6;
+    }
+    .btn{
+      padding:10px 16px;
+      background:var(--bg-secondary);
+      border:1px solid var(--border-default);
+      border-radius:8px;
+      color:var(--text-primary);
+      font-size:13px;
+      font-weight:600;
+      cursor:pointer;
+      transition:all 0.2s;
+      white-space:nowrap;
+    }
+    .btn:hover{
+      background:var(--bg-tertiary);
+      border-color:var(--border-accent);
+    }
+    .btn.primary{
+      background:var(--accent);
+      border-color:var(--accent);
+      color:var(--bg-primary);
+    }
+    .btn.primary:hover{
+      background:var(--accent-hover);
+      border-color:var(--accent-hover);
+    }
+
+    /* Timeline */
+    .timeline{
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+
+    /* Date Group */
+    .date-group{
+      background:var(--bg-secondary);
+      border:1px solid var(--border-default);
+      border-radius:12px;
+      overflow:hidden;
+      transition:all 0.2s;
+    }
+    .date-group:hover{
+      border-color:var(--border-accent);
+    }
+    .date-header{
+      padding:16px 20px;
+      background:var(--bg-tertiary);
+      border-bottom:1px solid var(--border-default);
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      user-select:none;
+    }
+    .date-header:hover{
+      background:var(--bg-elevated);
+    }
+    .date-info{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .date-badge{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      width:56px;
+      height:56px;
+      background:linear-gradient(135deg, var(--accent), var(--status-info));
+      border-radius:10px;
+      font-family:var(--font-mono);
+    }
+    .date-badge .day{
+      font-size:24px;
+      font-weight:700;
+      line-height:1;
+      color:var(--bg-primary);
+    }
+    .date-badge .month{
+      font-size:10px;
+      font-weight:600;
+      text-transform:uppercase;
+      margin-top:2px;
+      color:rgba(13,17,23,0.8);
+    }
+    .date-meta h3{
+      font-size:16px;
+      font-weight:700;
+      color:var(--text-primary);
+      margin-bottom:4px;
+    }
+    .date-meta p{
+      font-size:12px;
+      color:var(--text-secondary);
+      font-family:var(--font-mono);
+    }
+    .item-count{
+      padding:6px 12px;
+      background:var(--bg-primary);
+      border:1px solid var(--border-default);
+      border-radius:6px;
+      font-size:12px;
+      font-weight:600;
+      font-family:var(--font-mono);
+      color:var(--text-secondary);
+    }
+    .item-count strong{
+      color:var(--accent);
+    }
+
+    /* Items List */
+    .items-list{
+      padding:12px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .items-list:empty{
+      display:none;
+    }
+
+    /* Item Card */
+    .item-card{
+      display:grid;
+      grid-template-columns:auto 1fr;
+      gap:14px;
+      padding:14px;
+      background:var(--bg-primary);
+      border:1px solid var(--border-default);
+      border-radius:8px;
+      cursor:pointer;
+      transition:all 0.2s;
+    }
+    .item-card:hover{
+      background:var(--bg-secondary);
+      border-color:var(--accent);
+    }
+    .item-card.checked{
+      opacity:0.6;
+      border-color:var(--status-success);
+      background:var(--status-success-bg);
+    }
+    .item-checkbox{
+      margin-top:2px;
+    }
+    .item-checkbox input{
+      width:20px;
+      height:20px;
+      cursor:pointer;
+      accent-color:var(--status-success);
+    }
+    .item-content{
+      min-width:0;
+    }
+    .item-title{
+      font-size:14px;
+      font-weight:600;
+      color:var(--text-primary);
+      line-height:1.4;
+      margin-bottom:6px;
+    }
+    .item-title .city{
+      color:var(--accent);
+      font-weight:700;
+    }
+    .item-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin-bottom:8px;
+      font-size:11px;
+      color:var(--text-muted);
+    }
+    .item-meta span{
+      display:flex;
+      align-items:center;
+      gap:4px;
+    }
+    .item-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:4px;
+      padding:4px 10px;
+      background:var(--bg-tertiary);
+      border:1px solid var(--border-default);
+      border-radius:6px;
+      font-size:11px;
+      font-weight:600;
+      font-family:var(--font-mono);
+      color:var(--text-secondary);
+    }
+    .tag.status-ok{
+      background:var(--status-success-bg);
+      border-color:var(--status-success);
+      color:var(--status-success);
+    }
+    .tag.status-warning{
+      background:var(--status-warning-bg);
+      border-color:var(--status-warning);
+      color:var(--status-warning);
+    }
+    .tag.status-danger{
+      background:var(--status-danger-bg);
+      border-color:var(--status-danger);
+      color:var(--status-danger);
+    }
+
+    /* Sidebar */
+    .sidebar{
+      position:sticky;
+      top:100px;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+    .card{
+      background:var(--bg-secondary);
+      border:1px solid var(--border-default);
+      border-radius:12px;
+      padding:20px;
+    }
+    .card-title{
+      font-size:14px;
+      font-weight:700;
+      color:var(--text-primary);
+      margin-bottom:16px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .metrics{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+    .metric{
+      background:var(--bg-primary);
+      border:1px solid var(--border-default);
+      border-radius:8px;
+      padding:12px;
+      text-align:center;
+    }
+    .metric-label{
+      font-size:11px;
+      color:var(--text-muted);
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+      margin-bottom:6px;
+      font-weight:600;
+    }
+    .metric-value{
+      font-size:28px;
+      font-weight:800;
+      font-family:var(--font-mono);
+      color:var(--text-primary);
+      line-height:1;
+    }
+    .progress-container{
+      margin-top:16px;
+    }
+    .progress-bar{
+      height:8px;
+      background:var(--bg-primary);
+      border:1px solid var(--border-default);
+      border-radius:4px;
+      overflow:hidden;
+    }
+    .progress-fill{
+      height:100%;
+      background:linear-gradient(90deg, var(--status-success), var(--accent));
+      transition:width 0.3s ease;
+      width:0%;
+    }
+    .progress-label{
+      display:flex;
+      justify-content:space-between;
+      font-size:11px;
+      color:var(--text-muted);
+      margin-top:8px;
+      font-family:var(--font-mono);
+    }
+    .tips{
+      font-size:12px;
+      color:var(--text-secondary);
+      line-height:1.6;
+    }
+    .tips li{
+      margin-bottom:8px;
+      padding-left:4px;
+    }
+
+    /* Footer */
+    .footer{
+      padding:24px;
+      text-align:center;
+      font-size:12px;
+      color:var(--text-muted);
+      border-top:1px solid var(--border-default);
+      font-family:var(--font-mono);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px){
+      .main{
+        grid-template-columns:1fr;
+      }
+      .sidebar{
+        position:static;
+      }
+    }
+    @media (max-width: 640px){
+      .header-content{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .header-stats{
+        width:100%;
+        justify-content:space-between;
+      }
+      .toolbar{
+        flex-direction:column;
+      }
+      .search-box{
+        width:100%;
+      }
+      .metrics{
+        grid-template-columns:1fr;
+      }
+      .date-info{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+    }
+
+    /* Hidden state */
+    .hidden{
+      display:none !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="brand">
+          <div class="brand-icon">📋</div>
+          <div class="brand-text">
+            <h1>Vencimentos • Fevereiro 2026</h1>
+            <p>Sistema de acompanhamento de entregas</p>
+          </div>
+        </div>
+        <div class="header-stats">
+          <div class="stat-badge">
+            <span>Total:</span>
+            <span class="value" id="headerTotal">23</span>
+          </div>
+          <div class="stat-badge">
+            <span>Hoje:</span>
+            <span class="value" id="headerToday">—</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Timeline Section -->
+      <section>
+        <!-- Toolbar -->
+        <div class="toolbar">
+          <div class="search-box">
+            <input type="search" id="searchInput" placeholder="Buscar por cidade, chamado, contrato, prefixo..." />
+          </div>
+          <button class="btn" id="expandAll">Expandir Tudo</button>
+          <button class="btn" id="collapseAll">Recolher Tudo</button>
+          <button class="btn primary" id="resetBtn">Limpar Marcações</button>
+        </div>
+
+        <!-- Timeline -->
+        <div class="timeline" id="timeline">
+          
+          <!-- 06/02/2026 -->
+          <details class="date-group" open data-date="2026-02-06">
+            <summary class="date-header">
+              <div class="date-info">
+                <div class="date-badge">
+                  <span class="day">06</span>
+                  <span class="month">FEV</span>
+                </div>
+                <div class="date-meta">
+                  <h3>Quinta-feira, 06 de Fevereiro</h3>
+                  <p>Vencimento: 23:59:59</p>
+                </div>
+              </div>
+              <div class="item-count"><strong>5</strong> itens</div>
+            </summary>
+            <div class="items-list">
+              
+              <label class="item-card" data-search="cuiaba dom bosco 202574211507 250193641 2363/00 levantado 97 fotos 120 aguardar">
+                <div class="item-checkbox">
+                  <input type="checkbox" data-id="2026-02-06_250193641" />
+                </div>
+                <div class="item-content">
+                  <div class="item-title"><span class="city">Cuiabá</span> • DOM BOSCO</div>
+                  <div class="item-meta">
+                    <span>📄 202574211507</span>
+                    <span>🎫 250193641</span>
+                    <span>🔖 2363/00</span>
+                  </div>
+                  <div class="item-tags">
+                    <span class="tag status-ok">✓ Levantado</span>
+                    <span class="tag">97 fotos</span>
+                    <span class="tag">R$ 120,00</span>
+                    <span class="tag status-warning">⚠ Aguardar</span>
+                  </div>
+                </div>
+              </label>
+
+              <label class="item-card" data-search="cuiaba jaciara 202574211507 250193740 0854/00 levantado 171 fotos 120">
+                <div class="item-checkbox">
+                  <input type="checkbox" data-id="2026-02-06_250193740" />
+                </div>
+                <div class="item-content">
+                  <div class="item-title"><span class="city">Cuiabá</span> • Jaciara</div>
+                  <div class="item-meta">
+                    <span>📄 202574211507</span>
+                    <span>🎫 250193740</span>
+                    <span>🔖 0854/00</span>
+                  </div>
+                  <div class="item-tags">
+                    <span class="tag status-ok">✓ Levantado</span>
+                    <span class="tag">171 fotos</span>
+                    <span class="tag">R$ 120,00</span>
+                  </div>
+                </div>
+              </label>
+
+              <label class="item-card" data-search="cuiaba juscimeira 202574211507 250193650 2230/00 levantado 144 fotos 120">
+                <div class="item-checkbox">
+                  <input type="checkbox" data-id="2026-02-06_250193650" />
+                </div>
+                <div class="item-content">
+                  <div class="item-title"><span class="city">Cuiabá</span> • Juscimeira</div>
+                  <div class="item-meta">
+                    <span>📄 202574211507</span>
+                    <span>🎫 250193650</span>
+                    <span>🔖 2230/00</span>
+                  </div>
+                  <div class="item-tags">
+                    <span class="tag status-ok">✓ Levantado</span>
+                    <span class="tag">144 fotos</span>
+                    <span class="tag">R$ 120,00</span>
+                  </div>
+                </div>
+              </label>
+
+              <label class="item-card" data-search="varginha itanhandu 202474212057 250195329 0649/00 levantado 129 fotos 120 enviado">
+                <div class="item-checkbox">
+                  <input type="checkbox" data-id="2026-02-06_250195329" />
+                </div>
+                <div class="item-content">
+                  <div class="item-title"><span class="city">Varginha</span> • Itanhandu</div>
+                  <div class="item-meta">
+                    <span>📄 202474212057</span>
+                    <span>🎫 250195329</span>
+                    <span>🔖 0649/00</span>
+                  </div>
+                  <div class="item-tags">
+                    <span class="tag status-ok">✓ Levantado</span>
+                    <span class="tag">129 fotos</span>
+                    <span class="tag">R$ 120,00</span>
+                    <span class="tag status-warning">⚠ Enviado</span>
+                  </div>
+                </div>
+              </label>
+
+              <label class="item-card" data-search="varginha monte siao 202474212057 250195380 2791/00 levantado 302 fotos 150">
+                <div class="item-checkbox">
+                  <input type="checkbox" data-id="2026-02-06_250195380" />
+                </div>
+                <div class="item-content">
+                  <div class="item-title"><span class="city">Varginha</span> • Monte Sião</div>
+                  <div class="item-meta">
+                    <span>📄 202474212057</span>
+                    <span>🎫 250195380</span>
+                    <span>🔖 2791/00</span>
+                  </div>
+                  <div class="item-tags">
+                    <span class="tag status-ok">✓ Levantado</span>
+                    <span class="tag">302 fotos</span>
+                    <span class="tag">R$ 150,00</span>
+                  </div>
+                </div>
+              </label>
+
+            </div>
+          </details>
+
+          <!-- 10/02/2026 -->
+          <details class="date-group" data-date="2026-02-10">
+            <summary class="date-header">
+              <div class="date-info">
+                <div class="date-badge">
+                  <span class="day">10</span>
+                  <span class="month">FEV</span>
+                </div>
+                <div class="date-meta">
+                  <h3>Segunda-feira, 10 de Fevereiro</h3>
+                  <p>Vencimento: 23:59:59</p>
+                </div>
+              </div>
+              <div class="item-count"><strong>1</strong> item</div>
+            </summary>
+            <div class="items-list">
+              
+              <label class="item-card" data-search="tangara da serra vila rica 202574213575 250193670 1843/00 levantado 303 fotos 150 aguardando correcao">
+                <div class="item-checkbox">
+                  <input type="checkbox" data-id="2026-02-10_250193670" />
+                </div>
+                <div class="item-content">
+                  <div class="item-title"><span class="city">Tangará da Serra</span> • Vila Rica</div>
+                  <div class="item-meta">
+                    <span>📄 202574213575</span>
+                    <span>🎫 250193670</span>
+                    <span>🔖 1843/00</span>
+                  </div>
+                  <div class="item-tags">
+                    <span class="tag status-ok">✓ Levantado</span>
+                    <span class="tag">303 fotos</span>
+                    <span class="tag">R$ 150,00</span>
+                    <span class="tag status-warning">⚠ Aguardando correção</span>
+                  </div>
+                </div>
+              </label>
+
+            </div>
+          </details>
+
+          <!-- 13/02/2026 -->
+          <details class="date-group" data-date="2026-02-13">
+            <summary class="date-header">
+              <div class="date-info">
+                <div class="date-badge">
+                  <span class="day">13</span>
+                  <span class="month">FEV</span>
+                </div>
+                <div class="date-meta">
+                  <h3>Quinta-feira, 13 de Fevereiro</h3>
+                  <p>Vencimento: 23:59:59</p>
+                </div>
+              </div>
+              <div class="item-count"><strong>2</strong> itens</div>
+            </summary>
+            <div class="items-list">
+              
+              <label class="item-card" data-search="divinopolis santo antonio do amparo 202574212056 250195392 2601/00 levantado 372 fotos 200">
+                <div class="item-checkbox">
+                  <input type="checkbox" data-id="2026-02-13_250195392" />
+                </div>
+                <div class="item-content">
+                  <div class="item-title"><span class="city">Divinópolis</span> • Santo Antônio do Amparo</div>
+                  <div class="item-meta">
+                    <span>📄 202574212056</span>
+                    <span>🎫 250195392</span>
+                    <span>🔖 2601/00</span>
+                  </div>
+                  <div class="item-tags">
+                    <span class="tag status-ok">✓ Levantado</span>
+                    <span class="tag">372 fotos</span>
+                    <span class="tag">R$ 200,00</span>
+                  </div>
+                </div>
+              </label>
+
+              <label class="item-card" data-search="divinopolis ufla lavras 202574212056 250195350 0364/71 levantado 174 fotos 120">
+                <div class="item-checkbox">
+                  <input type="checkbox" data-id="2026-02-13_250195350" />
+                </div>
+                <div class="item-content">
+                  <div class="item-title"><span class="city">Divinópolis</span> • UFLA (Lavras)</div>
+                  <div class="item-meta">
+                    <span>📄 202574212056</span>
+                    <span>🎫 250195350</span>
+                    <span>🔖 0364/71</span>
+                  </div>
+                  <div class="item-tags">
+                    <span class="tag status-ok">✓ Levantado</span>
+                    <span class="tag">174 fotos</span>
+                    <span class="tag">R$ 120,00</span>
+                  </div>
+                </div>
+              </label>
+
+            </div>
+          </details>
+
+          <!-- 20/02/2026 -->
+          <details class="date-group" data-date="2026-02-20">
+            <summary class="date-header">
+              <div class="date-info">
+                <div class="date-badge">
+                  <span class="day">20</span>
+                  <span class="month">FEV</span>
+                </div>
+                <div class="date-meta">
+                  <h3>Quinta-feira, 20 de Fevereiro</h3>
+                  <p>Vencimento: 23:59:59</p>
+                </div>
+              </div>
+              <div class="item-count"><strong>4</strong> itens</div>
+            </summary>
+            <div class="items-list">
+              
+              <label class="item-card" data-search="cuiaba poxoreu 202574211507 250193758 0553/00 levantado 353 fotos 150">
+                <div class="item-checkbox">
+                  <input type="checkbox" data-id="2026-02-20_250193758" />
+                </div>
+                <div class="item-content">
+                  <div class="item-title"><span class="city">Cuiabá</span> • Poxoréu</div>
+                  <div class="item-meta">
+                    <span>📄 202574211507</span>
+                    <span>🎫 250193758</span>
+                    <span>🔖 0553/00</span>
+                  </div>
+                  <div class="item-tags">
+                    <span class="tag status-ok">✓ Levantado</span>
+                    <span class="tag">353 fotos</span>
+                    <span class="tag">R$ 150,00</span>
+                  </div>
+                </div>
+              </label>
+
+              <label class="item-card" data-search="salinas sao joao do paraiso 202574212626 250195388 2633/00 levantado 191 fotos 120">
+                <div class="item-checkbox">
+                  <input type="checkbox" data-id="2026-02-20_250195388" />
+                </div>
+                <div class="item-content">
+                  <div class="item-title"><span class="city">Salinas</span> • São João do Paraíso</div>
+                  <div class="item-meta">
+                    <span>📄 202574212626</span>
+                    <span>🎫 250195388</span>
+                    <span>🔖 2633/00</span>
+                  </div>
+                  <div class="item-tags">
+                    <span class="tag status-ok">✓ Levantado</span>
+                    <span class="tag">191 fotos</span>
+                    <span class="tag">R$ 120,00</span>
+                  </div>
+                </div>
+              </label>
+
+              <label class="item-card" data-search="varginha camanducaia 202474212057 250195436 1706/00 levantado 440 fotos 200">
+                <div class="item-checkbox">
+                  <input type="checkbox" data-id="2026-02-20_250195436" />
+                </div>
+                <div class="item-content">
+                  <div class="item-title"><span class="city">Varginha</span> • Camanducaia</div>
+                  <div class="item-meta">
+                    <span>📄 202474212057</span>
+                    <span>🎫 250195436</span>
+                    <span>🔖 1706/00</span>
+                  </div>
+                  <div class="item-tags">
+                    <span class="tag status-ok">✓ Levantado</span>
+                    <span class="tag">440 fotos</span>
+                    <span class="tag">R$ 200,00</span>
+                  </div>
+                </div>
+              </label>
+
+              <label class="item-card" data-search="varginha itamonte 202474212057 250195369 3162/00 levantado 306 fotos 150">
+                <div class="item-checkbox">
+                  <input type="checkbox" data-id="2026-02-20_250195369" />
+                </div>
+                <div class="item-content">
+                  <div class="item-title"><span class="city">Varginha</span> • Itamonte</div>
+                  <div class="item-meta">
+                    <span>📄 202474212057</span>
+                    <span>🎫 250195369</span>
+                    <span>🔖 3162/00</span>
+                  </div>
+                  <div class="item-tags">
+                    <span class="tag status-ok">✓ Levantado</span>
+                    <span class="tag">306 fotos</span>
+                    <span class="tag">R$ 150,00</span>
+                  </div>
+                </div>
+              </label>
+
+            </div>
+          </details>
+
+          <!-- 27/02/2026 -->
+          <details class="date-group" data-date="2026-02-27">
+            <summary class="date-header">
+              <div class="date-info">
+                <div class="date-badge">
+                  <span class="day">27</span>
+                  <span class="month">FEV</span>
+                </div>
+                <div class="date-meta">
+                  <h3>Quinta-feira, 27 de Fevereiro</h3>
+                  <p>Vencimento: 23:59:59</p>
+                </div>
+              </div>
+              <div class="item-count"><strong>11</strong> itens</div>
+            </summary>
+            <div class="items-list">
+              
+              <label class="item-card" data-search="divinopolis carmopolis de minas 202574212056 250195430 1753/00 sem levantamento">
+                <div class="item-checkbox">
+                  <input type="checkbox" data-id="2026-02-27_250195430" />
+                </div>
+                <div class="item-content">
+                  <div class="item-title"><span class="city">Divinópolis</span> • Carmópolis de Minas</div>
+                  <div class="item-meta">
+                    <span>📄 202574212056</span>
+                    <span>🎫 250195430</span>
+                    <span>🔖 1753/00</span>
+                  </div>
+                  <div class="item-tags">
+                    <span class="tag status-danger">✗ Sem levantamento</span>
+                  </div>
+                </div>
+              </label>
+
+              <label class="item-card" data-search="sao paulo estilo castejon 202574210908 250194989 8642/00 levantado 614 fotos 288">
+                <div class="item-checkbox">
+                  <input type="checkbox" data-id="2026-02-27_250194989" />
+                </div>
+                <div class="item-content">
+                  <div class="item-title"><span class="city">São Paulo</span> • ESTILO CASTEJON</div>
+                  <div class="item-meta">
+                    <span>📄 202574210908</span>
+                    <span>🎫 250194989</span>
+                    <span>🔖 8642/00</span>
+                  </div>
+                  <div class="item-tags">
+                    <span class="tag status-ok">✓ Levantado</span>
+                    <span class="tag">614 fotos</span>
+                    <span class="tag">R$ 288,00</span>
+                  </div>
+                </div>
+              </label>
+
+              <label class="item-card" data-search="sao paulo forum suzano 202574210908 250197272 6710/01 levantado 41 fotos 120 enviado">
+                <div class="item-checkbox">
+                  <input type="checkbox" data-id="2026-02-27_250197272" />
+                </div>
+                <div class="item-content">
+                  <div class="item-title"><span class="city">São Paulo</span> • Fórum Suzano</div>
+                  <div class="item-meta">
+                    <span>📄 202574210908</span>
+                    <span>🎫 250197272</span>
+                    <span>🔖 6710/01</span>
+                  </div>
+                  <div class="item-tags">
+                    <span class="tag status-ok">✓ Levantado</span>
+                    <span class="tag">41 fotos</span>
+                    <span class="tag">R$ 120,00</span>
+                    <span class="tag status-warning">⚠ Enviado</span>
+                  </div>
+                </div>
+              </label>
+
+              <label class="item-card" data-search="sao paulo lorena 202574210908 250195071 0857/00 levantado 882 fotos 400">
+                <div class="item-checkbox">
+                  <input type="checkbox" data-id="2026-02-27_250195071" />
+                </div>
+                <div class="item-content">
+                  <div class="item-title"><span class="city">São Paulo</span> • Lorena</div>
+                  <div class="item-meta">
+                    <span>📄 202574210908</span>
+                    <span>🎫 250195071</span>
+                    <span>🔖 0857/00</span>
+                  </div>
+                  <div class="item-tags">
+                    <span class="tag status-ok">✓ Levantado</span>
+                    <span class="tag">882 fotos</span>
+                    <span class="tag">R$ 400,00</span>
+                  </div>
+                </div>
+              </label>
+
+              <label class="item-card" data-search="sao paulo roseira 202574210908 250195026 6935/00 levantado 455 fotos 240">
+                <div class="item-checkbox">
+                  <input type="checkbox" data-id="2026-02-27_250195026" />
+                </div>
+                <div class="item-content">
+                  <div class="item-title"><span class="city">São Paulo</span> • Roseira</div>
+                  <div class="item-meta">
+                    <span>📄 202574210908</span>
+                    <span>🎫 250195026</span>
+                    <span>🔖 6935/00</span>
+                  </div>
+                  <div class="item-tags">
+                    <span class="tag status-ok">✓ Levantado</span>
+                    <span class="tag">455 fotos</span>
+                    <span class="tag">R$ 240,00</span>
+                  </div>
+                </div>
+              </label>
+
+              <label class="item-card" data-search="sao paulo vila tatetuba 202574210908 250195016 7027/00 levantado 570 fotos 288">
+                <div class="item-checkbox">
+                  <input type="checkbox" data-id="2026-02-27_250195016" />
+                </div>
+                <div class="item-content">
+                  <div class="item-title"><span class="city">São Paulo</span> • Vila Tatetuba</div>
+                  <div class="item-meta">
+                    <span>📄 202574210908</span>
+                    <span>🎫 250195016</span>
+                    <span>🔖 7027/00</span>
+                  </div>
+                  <div class="item-tags">
+                    <span class="tag status-ok">✓ Levantado</span>
+                    <span class="tag">570 fotos</span>
+                    <span class="tag">R$ 288,00</span>
+                  </div>
+                </div>
+              </label>
+
+              <label class="item-card" data-search="valadares abre campo 202574212627 250200207 1326/00 levantado 145 fotos 120">
+                <div class="item-checkbox">
+                  <input type="checkbox" data-id="2026-02-27_250200207" />
+                </div>
+                <div class="item-content">
+                  <div class="item-title"><span class="city">Valadares</span> • Abre Campo</div>
+                  <div class="item-meta">
+                    <span>📄 202574212627</span>
+                    <span>🎫 250200207</span>
+                    <span>🔖 1326/00</span>
+                  </div>
+                  <div class="item-tags">
+                    <span class="tag status-ok">✓ Levantado</span>
+                    <span class="tag">145 fotos</span>
+                    <span class="tag">R$ 120,00</span>
+                  </div>
+                </div>
+              </label>
+
+              <label class="item-card" data-search="valadares aimores 202574212627 250200230 0215/00 levantado 266 fotos 120">
+                <div class="item-checkbox">
+                  <input type="checkbox" data-id="2026-02-27_250200230" />
+                </div>
+                <div class="item-content">
+                  <div class="item-title"><span class="city">Valadares</span> • Aimorés</div>
+                  <div class="item-meta">
+                    <span>📄 202574212627</span>
+                    <span>🎫 250200230</span>
+                    <span>🔖 0215/00</span>
+                  </div>
+                  <div class="item-tags">
+                    <span class="tag status-ok">✓ Levantado</span>
+                    <span class="tag">266 fotos</span>
+                    <span class="tag">R$ 120,00</span>
+                  </div>
+                </div>
+              </label>
+
+              <label class="item-card" data-search="valadares carai 202574212627 250200205 1742/00 levantado 194 fotos 120">
+                <div class="item-checkbox">
+                  <input type="checkbox" data-id="2026-02-27_250200205" />
+                </div>
+                <div class="item-content">
+                  <div class="item-title"><span class="city">Valadares</span> • Caraí</div>
+                  <div class="item-meta">
+                    <span>📄 202574212627</span>
+                    <span>🎫 250200205</span>
+                    <span>🔖 1742/00</span>
+                  </div>
+                  <div class="item-tags">
+                    <span class="tag status-ok">✓ Levantado</span>
+                    <span class="tag">194 fotos</span>
+                    <span class="tag">R$ 120,00</span>
+                  </div>
+                </div>
+              </label>
+
+              <label class="item-card" data-search="valadares manhumirim 202574212627 250200224 0412/00 levantado 117 fotos 120">
+                <div class="item-checkbox">
+                  <input type="checkbox" data-id="2026-02-27_250200224" />
+                </div>
+                <div class="item-content">
+                  <div class="item-title"><span class="city">Valadares</span> • Manhumirim</div>
+                  <div class="item-meta">
+                    <span>📄 202574212627</span>
+                    <span>🎫 250200224</span>
+                    <span>🔖 0412/00</span>
+                  </div>
+                  <div class="item-tags">
+                    <span class="tag status-ok">✓ Levantado</span>
+                    <span class="tag">117 fotos</span>
+                    <span class="tag">R$ 120,00</span>
+                  </div>
+                </div>
+              </label>
+
+              <label class="item-card" data-search="valadares raul soares 202574212627 250200227 0378/00 levantado 151 fotos 120">
+                <div class="item-checkbox">
+                  <input type="checkbox" data-id="2026-02-27_250200227" />
+                </div>
+                <div class="item-content">
+                  <div class="item-title"><span class="city">Valadares</span> • Raul Soares</div>
+                  <div class="item-meta">
+                    <span>📄 202574212627</span>
+                    <span>🎫 250200227</span>
+                    <span>🔖 0378/00</span>
+                  </div>
+                  <div class="item-tags">
+                    <span class="tag status-ok">✓ Levantado</span>
+                    <span class="tag">151 fotos</span>
+                    <span class="tag">R$ 120,00</span>
+                  </div>
+                </div>
+              </label>
+
+            </div>
+          </details>
+
+        </div>
+      </section>
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <!-- Metrics Card -->
+        <div class="card">
+          <h2 class="card-title">📊 Resumo Geral</h2>
+          <div class="metrics">
+            <div class="metric">
+              <div class="metric-label">Total</div>
+              <div class="metric-value" id="metricTotal">23</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Concluído</div>
+              <div class="metric-value" id="metricDone">0</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Pendente</div>
+              <div class="metric-value" id="metricPending">23</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Progresso</div>
+              <div class="metric-value"><span id="metricProgress">0</span>%</div>
+            </div>
+          </div>
+          <div class="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressBar"></div>
+            </div>
+            <div class="progress-label">
+              <span>Acompanhamento</span>
+              <span id="progressText">0 de 23</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tips Card -->
+        <div class="card">
+          <h2 class="card-title">💡 Dicas</h2>
+          <ul class="tips">
+            <li>Use a busca para encontrar rapidamente chamados, contratos ou cidades específicas</li>
+            <li>Marcações são salvas automaticamente no navegador</li>
+            <li>Itens "Sem levantamento" aparecem destacados em vermelho</li>
+            <li>Clique nas datas para expandir/recolher grupos</li>
+          </ul>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      TM • Sempre Tecnologia • Checklist Fevereiro/2026 • Dados salvos localmente
+    </footer>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'tm_vencimentos_fev2026_v2';
+
+    // Load state from localStorage
+    function loadState() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      } catch {
+        return {};
+      }
+    }
+
+    // Save state to localStorage
+    function saveState(state) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    // Initialize state
+    let state = loadState();
+    
+    // Get all checkboxes
+    const checkboxes = document.querySelectorAll('.item-card input[type="checkbox"]');
+    const dateGroups = document.querySelectorAll('.date-group');
+    const searchInput = document.getElementById('searchInput');
+
+    // Apply saved state
+    checkboxes.forEach(checkbox => {
+      const id = checkbox.dataset.id;
+      if (state[id]) {
+        checkbox.checked = true;
+        checkbox.closest('.item-card').classList.add('checked');
+      }
+
+      checkbox.addEventListener('change', () => {
+        state[id] = checkbox.checked;
+        checkbox.closest('.item-card').classList.toggle('checked', checkbox.checked);
+        saveState(state);
+        updateMetrics();
+      });
+    });
+
+    // Update metrics
+    function updateMetrics() {
+      const visibleCheckboxes = Array.from(checkboxes).filter(cb => {
+        const card = cb.closest('.item-card');
+        return card && !card.classList.contains('hidden');
+      });
+
+      const total = visibleCheckboxes.length;
+      const done = visibleCheckboxes.filter(cb => cb.checked).length;
+      const pending = total - done;
+      const progress = total > 0 ? Math.round((done / total) * 100) : 0;
+
+      document.getElementById('headerTotal').textContent = total;
+      document.getElementById('metricTotal').textContent = total;
+      document.getElementById('metricDone').textContent = done;
+      document.getElementById('metricPending').textContent = pending;
+      document.getElementById('metricProgress').textContent = progress;
+      document.getElementById('progressBar').style.width = progress + '%';
+      document.getElementById('progressText').textContent = `${done} de ${total}`;
+    }
+
+    // Search functionality
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.toLowerCase().trim();
+      
+      checkboxes.forEach(checkbox => {
+        const card = checkbox.closest('.item-card');
+        const searchText = card.dataset.search.toLowerCase();
+        const matches = !query || searchText.includes(query);
+        
+        card.classList.toggle('hidden', !matches);
+      });
+
+      // Hide empty date groups
+      dateGroups.forEach(group => {
+        const visibleItems = group.querySelectorAll('.item-card:not(.hidden)');
+        group.classList.toggle('hidden', visibleItems.length === 0);
+      });
+
+      updateMetrics();
+    });
+
+    // Expand/Collapse all
+    document.getElementById('expandAll').addEventListener('click', () => {
+      dateGroups.forEach(group => group.open = true);
+    });
+
+    document.getElementById('collapseAll').addEventListener('click', () => {
+      dateGroups.forEach(group => group.open = false);
+    });
+
+    // Reset all
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      if (!confirm('Tem certeza que deseja limpar todas as marcações?')) return;
+      
+      checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+        checkbox.closest('.item-card').classList.remove('checked');
+      });
+      
+      state = {};
+      saveState(state);
+      updateMetrics();
+    });
+
+    // Update today's date indicator
+    try {
+      const today = new Date().toLocaleDateString('pt-BR');
+      document.getElementById('headerToday').textContent = today;
+    } catch {
+      document.getElementById('headerToday').textContent = new Date().toLocaleDateString();
+    }
+
+    // Initial metrics update
+    updateMetrics();
+  </script>
+</body>
+</html>
