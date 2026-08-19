@@ -1,40 +1,40 @@
-# 📦 maffeng — Mapa do Repositório
+# 📋 INVENTÁRIO — MAFFENG ENGENHARIA
 
-> Branch: `master` | Tracked: ~160 arquivos | ✅ Limpo (sem alterações)
-> Remote: `github.com/TM-SEMPRE-TECNOLOGIA/maffeng.git`
+**Repositório GitHub:** `TM-SEMPRE-TECNOLOGIA/maffeng`  
+**Data do Backup:** 18/08/2026 21:42  
+**Categoria:** Engenharia  
+**Total de Arquivos:** 171  
+**Tamanho Total:** 131.15 MB  
 
-## Site de Produção
-- **`maffeng-site-v2-tm.html`** — Site completo single-file (HTML + CSS `<style>` + JS `<script>` inline)
-- Cores: `--mf-red: #CC1A1A` | Fonte: Roboto Slab + Inter + JetBrains Mono
+---
 
-## Pastas
+## 📊 Distribuição por Extensões
+`.png`: 68, `.html`: 51, `.csv`: 24, `.md`: 9, `.json`: 5, `.py`: 3, `.jpg`: 3, `.gs`: 2
 
-| Pasta | Descrição |
-|-------|-----------|
-| `SITE MAFFENG/` | Versões do site Maffeng |
-| `Design Maffeng/` | Assets de design — versões v1 a v14, home page |
-| `Itens por contrato - HTML/` | Planilhas de itens de contrato em HTML |
-| `Itens por contrato - HTML (Pintura Destacada)/` | Itens com pintura destacada |
-| `Arquivos HTML - Geral/` | HTMLs gerais |
-| `Modelos pessoais/` | Modelos de documentos |
-| `tests/` | Testes Playwright |
-| `test_screenshots/` | Screenshots dos testes |
+---
 
-## Arquivos Importantes
+## 📂 Estrutura de Diretórios e Arquivos Principais
 
-| Arquivo | Descrição |
-|---------|-----------|
-| `CLAUDE.md` | Instruções de desenvolvimento (contém tokens de design, breakpoints, dados críticos) |
-| `APRESENTACAO-MAFFENG-v2.html` | Apresentação comercial (~38KB) |
-| `JORNADA - RELATORIOS - AUTOMAÇÃO.html` | Jornada de automação de relatórios |
-| `MAFFENG - PINTURAS SOMENTE.html` | Página específica de pinturas |
-| `playwright.config.ts` | Configuração de testes |
+- 📁 **`.claude/`** — 30 arquivos (0.48 MB)
+- 📁 **`.context/`** — 3 arquivos (0.01 MB)
+- 📄 **`.gitignore`** (0.3 KB)
+- 📄 **`APRESENTACAO-MAFFENG-v2.html`** (36.9 KB)
+- 📁 **`Arquivos HTML - Geral/`** — 1 arquivos (0.04 MB)
+- 📁 **`Arquivos.md/`** — 3 arquivos (0.02 MB)
+- 📄 **`CLAUDE.md`** (4.3 KB)
+- 📁 **`Design Maffeng/`** — 69 arquivos (95.33 MB)
+- 📄 **`INVENTARIO-MAFFENG.md`** (1.6 KB)
+- 📁 **`Itens por contrato - HTML/`** — 9 arquivos (1.21 MB)
+- 📁 **`Itens por contrato - HTML (Pintura Destacada)/`** — 9 arquivos (1.31 MB)
+- 📄 **`JORNADA - RELATORIOS - AUTOMAÇÃO.html`** (28.1 KB)
+- 📄 **`MAFFENG - PINTURAS SOMENTE.html`** (47.2 KB)
+- 📁 **`Modelos pessoais/`** — 3 arquivos (0.10 MB)
+- 📁 **`SITE MAFFENG/`** — 11 arquivos (21.48 MB)
+- 📄 **`package-lock.json`** (38.1 KB)
+- 📄 **`package.json`** (0.3 KB)
+- 📄 **`playwright.config.ts`** (0.5 KB)
+- 📁 **`test_screenshots/`** — 23 arquivos (11.01 MB)
+- 📁 **`tests/`** — 1 arquivos (0.01 MB)
 
-## Dados Críticos (telefones, endereços)
-- Tel: `(62) 2220-0664`
-- WhatsApp: `http://wa.me/5562996546785`
-- Email: `administrativo@maffengengenharia.com.br`
-- Endereço: R C75 381, Setor Sudoeste, Goiânia – GO
-- CNPJ: 33.624.704/0001-94
-
-> 📅 Última atualização: 08/07/2026
+---
+*Gerado automaticamente pelo Antigravity como parte do Backup Geral do Ecossistema TM.*
